@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace ZMusicManager {
 	class Utils {
 
-		public static IEnumerable<string> StreamReadAllLines(Stream stream) {
-			using (var reader = new StreamReader(stream)) {
+		public static IEnumerable<string> StreamReadAllLines(Func<Stream> streamProvider) {
+			using (var reader = new StreamReader(streamProvider())) {
 				string line;
 				while ((line = reader.ReadLine()) != null) {
 					yield return line;
@@ -17,12 +17,12 @@ namespace ZMusicManager {
 			}
 		}
 
-		public static int SearchSeqCommandValue(Stream stream, int commandId) {
+		public static int SearchSeqCommandValue(Func<Stream> streamProvider, int commandId) {
 			int foundIndex;
-			return SearchSeqCommandValue(stream, commandId, out foundIndex);
+			return SearchSeqCommandValue(streamProvider, commandId, out foundIndex);
 		}
-		public static int SearchSeqCommandValue(Stream stream, int commandId, out int foundIndex) {
-			using (var reader = new BinaryReader(stream)) {
+		public static int SearchSeqCommandValue(Func<Stream> streamProvider, int commandId, out int foundIndex) {
+			using (var reader = new BinaryReader(streamProvider())) {
 				// Search thru the whole file until we find the command
 				try {
 					for (int i = 0; true; i++) {
@@ -42,7 +42,7 @@ namespace ZMusicManager {
 
 		public static void ReplaceSeqCommandValue(Func<Stream> streamProvider, int commandId, int value) {
 			int indexOfCommand;
-			SearchSeqCommandValue(streamProvider(), commandId, out indexOfCommand);
+			SearchSeqCommandValue(streamProvider, commandId, out indexOfCommand);
 
 			// Don't modify the seq if we do not find the command
 			if (indexOfCommand < 0) return;
