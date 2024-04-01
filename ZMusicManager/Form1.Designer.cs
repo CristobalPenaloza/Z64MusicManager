@@ -29,11 +29,11 @@
 		{
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnNew = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnSave = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutZMusicManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label1 = new System.Windows.Forms.Label();
@@ -47,6 +47,7 @@
 			this.cbxSequenceType = new System.Windows.Forms.ComboBox();
 			this.tbMainVolume = new System.Windows.Forms.TrackBar();
 			this.txtMainVolume = new System.Windows.Forms.TextBox();
+			this.btnOpenMusicGroupSelector = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
@@ -66,45 +67,49 @@
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
+            this.btnNew,
             this.btnOpen,
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.btnSave,
+            this.btnSaveAs,
+            this.btnExit});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
 			this.fileToolStripMenuItem.Text = "File";
 			// 
-			// newToolStripMenuItem
+			// btnNew
 			// 
-			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
-			this.newToolStripMenuItem.Text = "New";
+			this.btnNew.Name = "btnNew";
+			this.btnNew.Size = new System.Drawing.Size(216, 26);
+			this.btnNew.Text = "New";
+			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
 			// 
 			// btnOpen
 			// 
 			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(144, 26);
+			this.btnOpen.Size = new System.Drawing.Size(216, 26);
 			this.btnOpen.Text = "Open...";
 			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
-			// saveToolStripMenuItem
+			// btnSave
 			// 
-			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
-			this.saveToolStripMenuItem.Text = "Save";
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(216, 26);
+			this.btnSave.Text = "Save";
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
-			// saveAsToolStripMenuItem
+			// btnSaveAs
 			// 
-			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
-			this.saveAsToolStripMenuItem.Text = "Save As...";
+			this.btnSaveAs.Name = "btnSaveAs";
+			this.btnSaveAs.Size = new System.Drawing.Size(216, 26);
+			this.btnSaveAs.Text = "Save As...";
+			this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
 			// 
-			// exitToolStripMenuItem
+			// btnExit
 			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
-			this.exitToolStripMenuItem.Text = "Exit";
+			this.btnExit.Name = "btnExit";
+			this.btnExit.Size = new System.Drawing.Size(216, 26);
+			this.btnExit.Text = "Exit";
+			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -187,7 +192,7 @@
 			// 
 			this.txtMusicGroups.Location = new System.Drawing.Point(133, 146);
 			this.txtMusicGroups.Name = "txtMusicGroups";
-			this.txtMusicGroups.Size = new System.Drawing.Size(293, 22);
+			this.txtMusicGroups.Size = new System.Drawing.Size(253, 22);
 			this.txtMusicGroups.TabIndex = 8;
 			// 
 			// cbxSequenceType
@@ -222,11 +227,22 @@
 			this.txtMainVolume.TabIndex = 12;
 			this.txtMainVolume.Text = "58";
 			// 
+			// btnOpenMusicGroupSelector
+			// 
+			this.btnOpenMusicGroupSelector.Location = new System.Drawing.Point(392, 145);
+			this.btnOpenMusicGroupSelector.Name = "btnOpenMusicGroupSelector";
+			this.btnOpenMusicGroupSelector.Size = new System.Drawing.Size(34, 27);
+			this.btnOpenMusicGroupSelector.TabIndex = 13;
+			this.btnOpenMusicGroupSelector.Text = "...";
+			this.btnOpenMusicGroupSelector.UseVisualStyleBackColor = true;
+			this.btnOpenMusicGroupSelector.Click += new System.EventHandler(this.btnOpenMusicGroupSelector_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(444, 491);
+			this.Controls.Add(this.btnOpenMusicGroupSelector);
 			this.Controls.Add(this.txtMainVolume);
 			this.Controls.Add(this.tbMainVolume);
 			this.Controls.Add(this.cbxSequenceType);
@@ -255,13 +271,13 @@
 
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem btnNew;
 		private System.Windows.Forms.ToolStripMenuItem btnOpen;
-		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem btnExit;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutZMusicManagerToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem btnSave;
+		private System.Windows.Forms.ToolStripMenuItem btnSaveAs;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
@@ -273,6 +289,7 @@
 		private System.Windows.Forms.ComboBox cbxSequenceType;
 		private System.Windows.Forms.TrackBar tbMainVolume;
 		private System.Windows.Forms.TextBox txtMainVolume;
+		private System.Windows.Forms.Button btnOpenMusicGroupSelector;
 	}
 }
 
