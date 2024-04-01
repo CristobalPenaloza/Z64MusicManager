@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
+using System.Diagnostics;
 
 namespace ZMusicManager{
 	public partial class Form1 : Form {
@@ -144,7 +145,10 @@ namespace ZMusicManager{
 		}
 
 		private void btnOpenMusicGroupSelector_Click(object sender, EventArgs e) {
-			// TODO: Port TheSoundDefense's tool for music groups
+			// In the meantime, we just open the music group tool on the browser for easy access
+			// TODO: Implement TheSoundDefense's tool in-app in the future
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://thesounddefense.github.io/musicgroups/");
+			Process.Start(sInfo);
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {
@@ -222,6 +226,32 @@ namespace ZMusicManager{
 
 		private void btnExit_Click(object sender, EventArgs e) {
 			Application.Exit();
+		}
+
+		private void btnPreview_Click(object sender, EventArgs e) {
+
+		}
+
+
+
+		// TODO: OPEN OOTRS FILES https://stackoverflow.com/questions/2144370/winform-application-to-launch-and-read-from-a-file-with-custom-extension
+
+
+		// [HELP] menu
+
+		private void btnDJGithub_Click(object sender, EventArgs e) {
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/DaruniasJoy/OoT-Custom-Sequences");
+			Process.Start(sInfo);
+		}
+
+		private void btnDJDiscord_Click(object sender, EventArgs e) {
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://discord.gg/EVpd499gkS");
+			Process.Start(sInfo);
+		}
+
+		private void btnGuideCreatingMusicFiles_Click(object sender, EventArgs e) {
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://gist.github.com/TheSoundDefense/128c933b629e972835afb25692f9cc2d");
+			Process.Start(sInfo);
 		}
 	}
 }

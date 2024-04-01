@@ -16,6 +16,11 @@ namespace ZMusicManager
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+
+			string[] args = Environment.GetCommandLineArgs();
+			//string fileName = args[1]; // <-- TODO: CHECK IF FILENAME EXISTS, AND ADD IT TO THE FORM VIA CONSTRUCTOR
+
+			// TODO: CREATE MULTIPLE FORMS FOR MMRS FILES
 			Application.Run(new Form1());
 		}
 	}
