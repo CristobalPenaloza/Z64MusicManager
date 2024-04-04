@@ -21,7 +21,7 @@ namespace ZMusicManager
 			//string fileName = args[1]; // <-- TODO: CHECK IF FILENAME EXISTS, AND ADD IT TO THE FORM VIA CONSTRUCTOR
 
 			// TODO: CREATE MULTIPLE FORMS FOR MMRS FILES
-			Application.Run(new Form1());
+			Application.Run(new OoTRForm());
 		}
 	}
 }

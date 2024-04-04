@@ -1,6 +1,6 @@
 ﻿namespace ZMusicManager
 {
-	partial class Form1
+	partial class OoTRForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -27,21 +27,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnNew = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnSave = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnSaveAs = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
-			this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.convertToMMRSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.bulkConvertToMMRSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnDJGithub = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnDJDiscord = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnGuideCreatingMusicFiles = new System.Windows.Forms.ToolStripMenuItem();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
@@ -55,131 +40,8 @@
 			this.txtMainVolume = new System.Windows.Forms.TextBox();
 			this.btnOpenMusicGroupSelector = new System.Windows.Forms.Button();
 			this.btnPreview = new System.Windows.Forms.Button();
-			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// menuStrip1
-			// 
-			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.convertToolStripMenuItem,
-            this.helpToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(441, 28);
-			this.menuStrip1.TabIndex = 0;
-			this.menuStrip1.Text = "menuStrip1";
-			// 
-			// fileToolStripMenuItem
-			// 
-			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnNew,
-            this.btnOpen,
-            this.btnSave,
-            this.btnSaveAs,
-            this.btnExit});
-			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-			this.fileToolStripMenuItem.Text = "File";
-			// 
-			// btnNew
-			// 
-			this.btnNew.Name = "btnNew";
-			this.btnNew.Size = new System.Drawing.Size(144, 26);
-			this.btnNew.Text = "New";
-			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-			// 
-			// btnOpen
-			// 
-			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(144, 26);
-			this.btnOpen.Text = "Open...";
-			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-			// 
-			// btnSave
-			// 
-			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(144, 26);
-			this.btnSave.Text = "Save";
-			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-			// 
-			// btnSaveAs
-			// 
-			this.btnSaveAs.Name = "btnSaveAs";
-			this.btnSaveAs.Size = new System.Drawing.Size(144, 26);
-			this.btnSaveAs.Text = "Save As...";
-			this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
-			// 
-			// btnExit
-			// 
-			this.btnExit.Name = "btnExit";
-			this.btnExit.Size = new System.Drawing.Size(144, 26);
-			this.btnExit.Text = "Exit";
-			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-			// 
-			// convertToolStripMenuItem
-			// 
-			this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.convertToMMRSToolStripMenuItem,
-            this.bulkConvertToMMRSToolStripMenuItem});
-			this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
-			this.convertToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
-			this.convertToolStripMenuItem.Text = "Convert";
-			// 
-			// convertToMMRSToolStripMenuItem
-			// 
-			this.convertToMMRSToolStripMenuItem.Enabled = false;
-			this.convertToMMRSToolStripMenuItem.Name = "convertToMMRSToolStripMenuItem";
-			this.convertToMMRSToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-			this.convertToMMRSToolStripMenuItem.Text = "Convert to MMRS";
-			// 
-			// bulkConvertToMMRSToolStripMenuItem
-			// 
-			this.bulkConvertToMMRSToolStripMenuItem.Enabled = false;
-			this.bulkConvertToMMRSToolStripMenuItem.Name = "bulkConvertToMMRSToolStripMenuItem";
-			this.bulkConvertToMMRSToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-			this.bulkConvertToMMRSToolStripMenuItem.Text = "Bulk convert to MMRS";
-			// 
-			// helpToolStripMenuItem
-			// 
-			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAbout,
-            this.btnDJGithub,
-            this.btnDJDiscord,
-            this.btnGuideCreatingMusicFiles});
-			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-			this.helpToolStripMenuItem.Text = "Help";
-			// 
-			// btnAbout
-			// 
-			this.btnAbout.Enabled = false;
-			this.btnAbout.Name = "btnAbout";
-			this.btnAbout.Size = new System.Drawing.Size(398, 26);
-			this.btnAbout.Text = "About ZMusic Manager";
-			// 
-			// btnDJGithub
-			// 
-			this.btnDJGithub.Name = "btnDJGithub";
-			this.btnDJGithub.Size = new System.Drawing.Size(398, 26);
-			this.btnDJGithub.Text = "Darunia\'s Joy GitHub repository";
-			this.btnDJGithub.Click += new System.EventHandler(this.btnDJGithub_Click);
-			// 
-			// btnDJDiscord
-			// 
-			this.btnDJDiscord.Name = "btnDJDiscord";
-			this.btnDJDiscord.Size = new System.Drawing.Size(398, 26);
-			this.btnDJDiscord.Text = "Darunia\'s Joy Discord";
-			this.btnDJDiscord.Click += new System.EventHandler(this.btnDJDiscord_Click);
-			// 
-			// btnGuideCreatingMusicFiles
-			// 
-			this.btnGuideCreatingMusicFiles.Name = "btnGuideCreatingMusicFiles";
-			this.btnGuideCreatingMusicFiles.Size = new System.Drawing.Size(398, 26);
-			this.btnGuideCreatingMusicFiles.Text = "Guide: Creating music files for OoT Randomizer";
-			this.btnGuideCreatingMusicFiles.Click += new System.EventHandler(this.btnGuideCreatingMusicFiles_Click);
 			// 
 			// label1
 			// 
@@ -303,11 +165,11 @@
 			this.btnPreview.UseVisualStyleBackColor = true;
 			this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
 			// 
-			// Form1
+			// OoTRForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(441, 292);
+			this.ClientSize = new System.Drawing.Size(441, 286);
 			this.Controls.Add(this.btnPreview);
 			this.Controls.Add(this.btnOpenMusicGroupSelector);
 			this.Controls.Add(this.txtMainVolume);
@@ -321,13 +183,22 @@
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
-			this.Controls.Add(this.menuStrip1);
-			this.MainMenuStrip = this.menuStrip1;
-			this.Name = "Form1";
-			this.Text = "ZMusic Manager";
+			this.Name = "OoTRForm";
+			this.Text = "ZMusic Manager - [Untitled - ZMusic Manager]";
 			this.Load += new System.EventHandler(this.Form1_Load);
-			this.menuStrip1.ResumeLayout(false);
-			this.menuStrip1.PerformLayout();
+			this.Controls.SetChildIndex(this.label1, 0);
+			this.Controls.SetChildIndex(this.label2, 0);
+			this.Controls.SetChildIndex(this.label3, 0);
+			this.Controls.SetChildIndex(this.label4, 0);
+			this.Controls.SetChildIndex(this.label5, 0);
+			this.Controls.SetChildIndex(this.txtName, 0);
+			this.Controls.SetChildIndex(this.cbxBank, 0);
+			this.Controls.SetChildIndex(this.txtMusicGroups, 0);
+			this.Controls.SetChildIndex(this.cbxSequenceType, 0);
+			this.Controls.SetChildIndex(this.tbMainVolume, 0);
+			this.Controls.SetChildIndex(this.txtMainVolume, 0);
+			this.Controls.SetChildIndex(this.btnOpenMusicGroupSelector, 0);
+			this.Controls.SetChildIndex(this.btnPreview, 0);
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -335,16 +206,6 @@
 		}
 
 		#endregion
-
-		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem btnNew;
-		private System.Windows.Forms.ToolStripMenuItem btnOpen;
-		private System.Windows.Forms.ToolStripMenuItem btnExit;
-		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem btnAbout;
-		private System.Windows.Forms.ToolStripMenuItem btnSave;
-		private System.Windows.Forms.ToolStripMenuItem btnSaveAs;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
@@ -358,12 +219,6 @@
 		private System.Windows.Forms.TextBox txtMainVolume;
 		private System.Windows.Forms.Button btnOpenMusicGroupSelector;
 		private System.Windows.Forms.Button btnPreview;
-		private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem convertToMMRSToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem bulkConvertToMMRSToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem btnDJGithub;
-		private System.Windows.Forms.ToolStripMenuItem btnGuideCreatingMusicFiles;
-		private System.Windows.Forms.ToolStripMenuItem btnDJDiscord;
 	}
 }
 

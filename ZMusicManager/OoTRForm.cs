@@ -12,11 +12,8 @@ using System.IO.Compression;
 using System.Diagnostics;
 
 namespace ZMusicManager{
-	public partial class Form1 : Form {
-		public string FileName;
-		public bool UnsavedChanges = false;
-
-		public Form1() {
+	public partial class OoTRForm : MainForm {
+		public OoTRForm() {
 			InitializeComponent();
 		}
 
@@ -31,17 +28,10 @@ namespace ZMusicManager{
 			cbxBank.ValueMember = "Id";
 			cbxBank.DataSource = Z64Bank.OoTBanks;
 
-			OpenCurrentFile();
+			FillFormWithCurrentFile();
 		}
-
-		private void ProcUnsavedChanges(object sender, EventArgs e) {
-			if (!UnsavedChanges) {
-				Text = "*" + Text;
-				UnsavedChanges = true;
-			}
-		}
-
-		private void OpenCurrentFile() {
+		
+		protected override void FillFormWithCurrentFile() {
 			if (!string.IsNullOrEmpty(FileName)) {
 				try {
 					// We open the ootrs file as zip
@@ -100,44 +90,15 @@ namespace ZMusicManager{
 			// The FileName is empty... so that means we are creating a new file!
 			// Also, clean the form.
 			} else {
-				txtName.Text = "";
-				cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == "0x03").FirstOrDefault();
-				cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact("Bgm");
-				txtMusicGroups.Text = "";
-
-				Text = "Untitled - ZMusic Manager";
-				UnsavedChanges = false;
+				NewFile();
 			}
 		}
 
-		private void btnNew_Click(object sender, EventArgs e) {
-			NewFile();
-		}
-
-		private void NewFile() {
-			FileName = null;
-			UnsavedChanges = false;
-			OpenCurrentFile();
-		}
-
-		private void btnOpen_Click(object sender, EventArgs e) {
-			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
-			ofd.Filter = "Ocarina of Time Radomizer Sound Files (*.ootrs)|*.ootrs";
-			ofd.RestoreDirectory = true;
-
-			// We show the open file dialog
-			DialogResult result = ofd.ShowDialog();
-
-			if (result == DialogResult.OK) {
-				// Save the filename path in a setting so we can persist it for the future...
-				FileName = ofd.FileName;
-				Properties.Settings.Default.LastPath = Path.GetDirectoryName(FileName);
-				Properties.Settings.Default.Save();
-
-				// We open the file!
-				OpenCurrentFile();
-			}
+		protected override void CleanForm() {
+			txtName.Text = "";
+			cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == "0x03").FirstOrDefault();
+			cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact("Bgm");
+			txtMusicGroups.Text = "";
 		}
 
 		private void tbMainVolume_ValueChanged(object sender, EventArgs e) {
@@ -151,31 +112,7 @@ namespace ZMusicManager{
 			Process.Start(sInfo);
 		}
 
-		private void btnSave_Click(object sender, EventArgs e) {
-			SaveFile(FileName);
-		}
-
-		private void btnSaveAs_Click(object sender, EventArgs e) {
-			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
-			sfd.Filter = "Ocarina of Time Radomizer Sound Files (*.ootrs)|*.ootrs";
-			sfd.RestoreDirectory = true;
-
-			// We show the open file dialog
-			DialogResult result = sfd.ShowDialog();
-
-			if (result == DialogResult.OK) {
-				// If we are editing an existing file, first we copy it to the destination location
-				bool editingExistingFile = File.Exists(FileName);
-				if (editingExistingFile) File.Copy(FileName, sfd.FileName, true);
-
-				// Then, we try to save the file
-				FileName = sfd.FileName;
-				SaveFile(sfd.FileName);
-			}
-		}
-
-		private void SaveFile(string path) {
+		protected override void SaveFile(string path) {
 
 			// First check if file exists. If it doesn't, we create a new file
 			bool newFile = !File.Exists(path);
@@ -220,12 +157,7 @@ namespace ZMusicManager{
 				}
 			}
 
-			OpenCurrentFile();
-		}
-		
-
-		private void btnExit_Click(object sender, EventArgs e) {
-			Application.Exit();
+			FillFormWithCurrentFile();
 		}
 
 		private void btnPreview_Click(object sender, EventArgs e) {
@@ -234,24 +166,6 @@ namespace ZMusicManager{
 
 
 
-		// TODO: OPEN OOTRS FILES https://stackoverflow.com/questions/2144370/winform-application-to-launch-and-read-from-a-file-with-custom-extension
-
-
-		// [HELP] menu
-
-		private void btnDJGithub_Click(object sender, EventArgs e) {
-			ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/DaruniasJoy/OoT-Custom-Sequences");
-			Process.Start(sInfo);
-		}
-
-		private void btnDJDiscord_Click(object sender, EventArgs e) {
-			ProcessStartInfo sInfo = new ProcessStartInfo("https://discord.gg/EVpd499gkS");
-			Process.Start(sInfo);
-		}
-
-		private void btnGuideCreatingMusicFiles_Click(object sender, EventArgs e) {
-			ProcessStartInfo sInfo = new ProcessStartInfo("https://gist.github.com/TheSoundDefense/128c933b629e972835afb25692f9cc2d");
-			Process.Start(sInfo);
-		}
+		
 	}
 }
