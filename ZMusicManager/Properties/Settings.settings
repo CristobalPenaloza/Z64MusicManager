@@ -5,5 +5,8 @@
     <Setting Name="LastPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C://</Value>
     </Setting>
+    <Setting Name="OoTMusicStarterPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

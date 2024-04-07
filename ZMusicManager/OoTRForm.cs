@@ -160,8 +160,20 @@ namespace ZMusicManager{
 			FillFormWithCurrentFile();
 		}
 
-		private void btnPreview_Click(object sender, EventArgs e) {
 
+		// https://github.com/NewSoupVi/ootr-custom-music-starter
+		private void btnPreview_Click(object sender, EventArgs e) {
+			
+			// Check if the custom music starter exists
+			string ootMusicStarter = Properties.Settings.Default.OoTMusicStarterPath;
+			if (File.Exists(ootMusicStarter)) {
+				ProcessStartInfo sInfo = new ProcessStartInfo(ootMusicStarter, "\"" + FileName + "\"");
+				Process.Start(sInfo);
+
+			} else {
+				var result = SetupOoTCustomMusicStarter();
+				if(result == DialogResult.OK) btnPreview_Click(sender, e);
+			}
 		}
 
 

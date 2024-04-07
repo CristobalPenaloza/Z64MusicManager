@@ -34,5 +34,17 @@ namespace ZMusicManager.Properties {
                 this["LastPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OoTMusicStarterPath {
+            get {
+                return ((string)(this["OoTMusicStarterPath"]));
+            }
+            set {
+                this["OoTMusicStarterPath"] = value;
+            }
+        }
     }
 }

@@ -38,6 +38,8 @@
 			this.btnDJGithub = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnDJDiscord = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnGuideCreatingMusicFiles = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnSetupOoTCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
 			this.msMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -47,10 +49,11 @@
 			this.msMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.convertToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
 			this.msMainMenu.Location = new System.Drawing.Point(0, 0);
 			this.msMainMenu.Name = "msMainMenu";
-			this.msMainMenu.Size = new System.Drawing.Size(295, 28);
+			this.msMainMenu.Size = new System.Drawing.Size(401, 28);
 			this.msMainMenu.TabIndex = 1;
 			this.msMainMenu.Text = "menuStrip1";
 			// 
@@ -160,11 +163,26 @@
 			this.btnGuideCreatingMusicFiles.Size = new System.Drawing.Size(398, 26);
 			this.btnGuideCreatingMusicFiles.Text = "Guide: Creating music files for OoT Randomizer";
 			// 
+			// toolsToolStripMenuItem
+			// 
+			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSetupOoTCustomMusicStarter});
+			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+			this.toolsToolStripMenuItem.Text = "Tools";
+			// 
+			// btnSetupOoTCustomMusicStarter
+			// 
+			this.btnSetupOoTCustomMusicStarter.Name = "btnSetupOoTCustomMusicStarter";
+			this.btnSetupOoTCustomMusicStarter.Size = new System.Drawing.Size(294, 26);
+			this.btnSetupOoTCustomMusicStarter.Text = "Setup OoT custom music starter";
+			this.btnSetupOoTCustomMusicStarter.Click += new System.EventHandler(this.btnSetupOoTCustomMusicStarter_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(295, 254);
+			this.ClientSize = new System.Drawing.Size(401, 339);
 			this.Controls.Add(this.msMainMenu);
 			this.Name = "MainForm";
 			this.Text = "ZMusic Manager";
@@ -193,5 +211,7 @@
 		private System.Windows.Forms.ToolStripMenuItem btnDJGithub;
 		private System.Windows.Forms.ToolStripMenuItem btnDJDiscord;
 		private System.Windows.Forms.ToolStripMenuItem btnGuideCreatingMusicFiles;
+		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem btnSetupOoTCustomMusicStarter;
 	}
 }
