@@ -184,7 +184,7 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Name = "OoTRForm";
-			this.Text = "ZMusic Manager - [Untitled - ZMusic Manager]";
+			this.Text = "OoTRForm";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.Controls.SetChildIndex(this.label1, 0);
 			this.Controls.SetChildIndex(this.label2, 0);

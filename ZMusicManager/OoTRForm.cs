@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
 
 namespace ZMusicManager{
 	public partial class OoTRForm : MainForm {
@@ -30,7 +31,14 @@ namespace ZMusicManager{
 
 			FillFormWithCurrentFile();
 		}
-		
+
+		protected override void CleanForm() {
+			txtName.Text = "";
+			cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == "0x03").FirstOrDefault();
+			cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact("Bgm");
+			txtMusicGroups.Text = "";
+		}
+
 		protected override void FillFormWithCurrentFile() {
 			if (!string.IsNullOrEmpty(FileName)) {
 				try {
@@ -94,13 +102,6 @@ namespace ZMusicManager{
 			}
 		}
 
-		protected override void CleanForm() {
-			txtName.Text = "";
-			cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == "0x03").FirstOrDefault();
-			cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact("Bgm");
-			txtMusicGroups.Text = "";
-		}
-
 		private void tbMainVolume_ValueChanged(object sender, EventArgs e) {
 			txtMainVolume.Text = tbMainVolume.Value.ToString("X");
 		}
@@ -113,51 +114,59 @@ namespace ZMusicManager{
 		}
 
 		protected override void SaveFile(string path) {
-
-			// First check if file exists. If it doesn't, we create a new file
-			bool newFile = !File.Exists(path);
-			string name = Path.GetFileNameWithoutExtension(path);
+			try {
+				// First check if file exists. If it doesn't, we create a new file
+				bool newFile = !File.Exists(path);
+				string name = Path.GetFileNameWithoutExtension(path);
 			
-			// Open the file
-			using (ZipArchive archive = ZipFile.Open(path, newFile ? ZipArchiveMode.Create : ZipArchiveMode.Update)) {
+				// Open the file
+				using (ZipArchive archive = ZipFile.Open(path, newFile ? ZipArchiveMode.Create : ZipArchiveMode.Update)) {
 
-				// Create the files if they don't exist
-				if (!archive.Entries.Any(e => e.Name.EndsWith(".meta"))) archive.CreateEntry(name + ".meta");
-				if (!archive.Entries.Any(e => e.Name.EndsWith(".seq"))) archive.CreateEntry(name + ".seq");
+					// Create the files if they don't exist
+					if (!archive.Entries.Any(e => e.Name.EndsWith(".meta"))) archive.CreateEntry(name + ".meta");
+					if (!archive.Entries.Any(e => e.Name.EndsWith(".seq"))) archive.CreateEntry(name + ".seq");
 
-				// Loop the existing entries
-				foreach (ZipArchiveEntry entry in archive.Entries) {
-					string extension = Path.GetExtension(entry.Name).ToLower();
+					// Loop the existing entries
+					foreach (ZipArchiveEntry entry in archive.Entries) {
+						string extension = Path.GetExtension(entry.Name).ToLower();
 
-					// Modify the meta file with the forms data
-					if (extension == ".meta") {
-						// Get all lines of the meta file
-						List<string> lines = Utils.StreamReadAllLines(() => entry.Open()).ToList();
+						// Modify the meta file with the forms data
+						if (extension == ".meta") {
+							// Get all lines of the meta file
+							List<string> lines = Utils.StreamReadAllLines(() => entry.Open()).ToList();
 
-						// Make sure we have enough space to fit all the data
-						if (lines.Count < 4) {
-							for (int i = 0; i < 4 - lines.Count; i++) lines.Add("");
+							// Make sure we have enough space to fit all the data
+							if (lines.Count < 4) {
+								for (int i = 0; i < 4 - lines.Count; i++) lines.Add("");
+							}
+
+							// Ovewrite all lines of the meta file
+							lines[0] = txtName.Text;
+							lines[1] = ((Z64Bank)cbxBank.SelectedValue).Id;
+							lines[2] = (string)cbxSequenceType.SelectedItem;
+							lines[3] = txtMusicGroups.Text;
+
+							// Write all the lines to the entry
+							using (var entryStream = entry.Open()) {
+								entryStream.SetLength(0); // We truncate the file before writing
+								using (var writer = new StreamWriter(entryStream)) {
+									foreach (string line in lines) writer.WriteLine(line);
+								}
+							}
+						
+
+							// Modify the volume of the seq file
+						} else if (extension == ".seq") {
+							Utils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
 						}
-
-						// Ovewrite all lines of the meta file
-						lines[0] = txtName.Text;
-						lines[1] = ((Z64Bank)cbxBank.SelectedValue).Id;
-						lines[2] = (string)cbxSequenceType.SelectedItem;
-						lines[3] = txtMusicGroups.Text;
-
-						// Write all the lines to the entry
-						using (var writer = new StreamWriter(entry.Open())) {
-							foreach (string line in lines) writer.WriteLine(line);
-						}
-
-						// Modify the volume of the seq file
-					} else if (extension == ".seq") {
-						Utils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
 					}
 				}
-			}
 
-			FillFormWithCurrentFile();
+				FillFormWithCurrentFile();
+				
+			} catch (Exception ex) {
+				MessageBox.Show("We couldn't save the file, because of the following error: " + ex.Message, "Save file error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 
 

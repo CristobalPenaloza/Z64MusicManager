@@ -47,6 +47,47 @@ namespace ZMusicManager {
 			new Z64Bank{ Id = "-", Name = "Custom Bank" },
 		};
 
+		public static List<Z64Bank> MMBanks = new List<Z64Bank> {
+			new Z64Bank{ Id = "3", Name = "0x03 - Main Orchestra/Termina Field" },
+			new Z64Bank{ Id = "4", Name = "0x04 - Mystery Woods" },
+			new Z64Bank{ Id = "5", Name = "0x05 - Minigame" },
+			new Z64Bank{ Id = "6", Name = "0x06 - Fairy Fountain" },
+			new Z64Bank{ Id = "7", Name = "0x07 - Romani Ranch" },
+			new Z64Bank{ Id = "8", Name = "0x08 - Horse Race" },
+			new Z64Bank{ Id = "9", Name = "0x09 - Breman Mask" },
+			new Z64Bank{ Id = "A", Name = "0x0A - Minigame Shop Ambience" },
+			new Z64Bank{ Id = "B", Name = "0x0B - Zora's Domain" },
+			new Z64Bank{ Id = "C", Name = "0x0C - Shop" },
+			new Z64Bank{ Id = "D", Name = "0x0D - Curiosity Shop" },
+			new Z64Bank{ Id = "E", Name = "0x0E - Kotake/Koume" },
+			new Z64Bank{ Id = "F", Name = "0x0F - Fanfares" },
+			new Z64Bank{ Id = "10", Name = "0x10 - Owl" },
+			new Z64Bank{ Id = "11", Name = "0x11 - Majora's Mask Theme" },
+			new Z64Bank{ Id = "12", Name = "0x12 - Giants Theme" },
+			new Z64Bank{ Id = "13", Name = "0x13 - Zora's Band Music" },
+			new Z64Bank{ Id = "14", Name = "0x14 - Woodfall Temple" },
+			new Z64Bank{ Id = "15", Name = "0x15 - Snowhead Temple" },
+			new Z64Bank{ Id = "16", Name = "0x16 - Aliens/Great Bay Temple" },
+			new Z64Bank{ Id = "17", Name = "0x17 - Astral Observatory/Final Hours" },
+			new Z64Bank{ Id = "18", Name = "0x18 - Sword School" },
+			new Z64Bank{ Id = "19", Name = "0x19 - Clocktown/Stone Tower" },
+			new Z64Bank{ Id = "1A", Name = "0x1A - Cave" },
+			new Z64Bank{ Id = "1B", Name = "0x1B - Mask Salesman Theme" },
+			new Z64Bank{ Id = "1C", Name = "0x1C - Southern Swamp" },
+			new Z64Bank{ Id = "1D", Name = "0x1D - Great Bay Coast" },
+			new Z64Bank{ Id = "1E", Name = "0x1E - Ikana Canyon" },
+			new Z64Bank{ Id = "1F", Name = "0x1F - Dancing Practice" },
+			new Z64Bank{ Id = "20", Name = "0x20 - Milk Bar" },
+			new Z64Bank{ Id = "21", Name = "0x21 - Epic Orchestra" },
+			new Z64Bank{ Id = "22", Name = "0x22 - Kamaro's Mask" },
+			new Z64Bank{ Id = "23", Name = "0x23 - Title Screen" },
+			new Z64Bank{ Id = "24", Name = "0x24 - Credit's Bank 1" },
+			new Z64Bank{ Id = "25", Name = "0x25 - Credit's Bank 2" },
+			new Z64Bank{ Id = "26", Name = "0x26 - Goron City/Race" },
+			new Z64Bank{ Id = "27", Name = "0x27 - Keaton's Quiz" },
+			new Z64Bank{ Id = "28", Name = "0X28 - Custom Bank" },
+		};
+
 		public override string ToString() {
 			return Name;
 		}

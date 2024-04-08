@@ -117,7 +117,11 @@ namespace ZMusicManager {
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {
-			SaveFile(FileName);
+			// If the file exists, we just save over it
+			if (File.Exists(FileName)) SaveFile(FileName);
+
+			// If it doesn't, we treat it as a new file
+			else btnSaveAs_Click(sender, e);
 		}
 		
 		private void btnSaveAs_Click(object sender, EventArgs e) {
