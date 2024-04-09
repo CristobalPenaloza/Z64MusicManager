@@ -46,5 +46,29 @@ namespace ZMusicManager.Properties {
                 this["OoTMusicStarterPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MMRCLIPath {
+            get {
+                return ((string)(this["MMRCLIPath"]));
+            }
+            set {
+                this["MMRCLIPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MajoraMaskRomPath {
+            get {
+                return ((string)(this["MajoraMaskRomPath"]));
+            }
+            set {
+                this["MajoraMaskRomPath"] = value;
+            }
+        }
     }
 }

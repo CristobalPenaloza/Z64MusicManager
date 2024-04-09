@@ -23,7 +23,7 @@ namespace ZMusicManager {
 		protected virtual void CleanForm() {
 			throw new NotImplementedException();
 		}
-		
+
 		protected virtual void FillFormWithCurrentFile() {
 			throw new NotImplementedException();
 		}
@@ -80,13 +80,13 @@ namespace ZMusicManager {
 				NewFile();
 				return;
 			}
-			
+
 			if (FileName.EndsWith(".ootrs")) {
 				// We change the current form to be an OoTR form
 				if (Name == "OoTRForm") FillFormWithCurrentFile();
 				else {
 					OoTRForm ootrForm = null;
-					foreach(OoTRForm form in Application.OpenForms.OfType<OoTRForm>()) ootrForm = form;
+					foreach (OoTRForm form in Application.OpenForms.OfType<OoTRForm>()) ootrForm = form;
 					if (ootrForm == null) ootrForm = new OoTRForm();
 
 					ootrForm.FileName = FileName;
@@ -112,7 +112,7 @@ namespace ZMusicManager {
 					mmrForm.Show();
 					Hide();
 				}
-				
+
 			}
 		}
 
@@ -123,7 +123,7 @@ namespace ZMusicManager {
 			// If it doesn't, we treat it as a new file
 			else btnSaveAs_Click(sender, e);
 		}
-		
+
 		private void btnSaveAs_Click(object sender, EventArgs e) {
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
@@ -182,7 +182,7 @@ namespace ZMusicManager {
 
 		protected DialogResult SetupOoTCustomMusicStarter() {
 			// TODO: Make this an original form, instead of this hacky messagebox.
-			string caption = "Custom music starter not setup!";
+			string caption = "OOT custom music starter not setup!";
 			string text = "To preview OOTRS files on emulator:\n\n1. Download NewSoupVi's custom music starter script from the Help button and set it up.\n\n2. Press OK on this message box, and select the CustomMusicStarter.bat file that you set up earlier.\n\n3. Enjoy! ";
 			DialogResult mbResult = MessageBox.Show(
 				text, caption, MessageBoxButtons.OKCancel,
@@ -199,6 +199,40 @@ namespace ZMusicManager {
 				DialogResult ofdResult = ofd.ShowDialog();
 				if (ofdResult == DialogResult.OK) {
 					Properties.Settings.Default.OoTMusicStarterPath = ofd.FileName;
+					return DialogResult.OK;
+				}
+			}
+
+			return DialogResult.None;
+		}
+
+		private void btnSetupMMCustomMusicStarter_Click(object sender, EventArgs e) {
+			SetupMMCustomMusicStarter();
+		}
+
+		protected DialogResult SetupMMCustomMusicStarter() {
+			string caption = "MM custom music starter not setup!";
+			string text = "To preview MMRS files on emulator:\n\n"
+				+ "1. Download and install an n64 emulator, and set it up so it opens .z64 files by default.\n\n"
+				+ "2. Download and setup MM Randomizer.\n\n"
+				+ "3. Make sure you have in your MM Randomizer default settings.json file an input ROM selected and custom music enabled.\n\n"
+				+ "4. Press OK on this message box, and select the MMR.CLI.exe file that is inside your instalation of MM Randomizer.\n\n"
+				+ "5. Enjoy! ";
+
+			DialogResult mbResult = MessageBox.Show(
+				text, caption, MessageBoxButtons.OKCancel,
+				MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+			if (mbResult == DialogResult.OK) {
+				OpenFileDialog ofd = new OpenFileDialog();
+				ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
+				ofd.Filter = "MMR.CLI.exe|MMR.CLI.exe";
+				ofd.RestoreDirectory = true;
+
+				// We show the open file dialog
+				DialogResult ofdResult = ofd.ShowDialog();
+				if (ofdResult == DialogResult.OK) {
+					Properties.Settings.Default.MMRCLIPath = ofd.FileName;
 					return DialogResult.OK;
 				}
 			}

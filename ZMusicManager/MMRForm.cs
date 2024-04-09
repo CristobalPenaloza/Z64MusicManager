@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -157,6 +158,39 @@ namespace ZMusicManager {
 
 		private void btnPreview_Click(object sender, EventArgs e) {
 
+			// Check if the mm rando exe file is setup
+			string mmrCLIPath = Properties.Settings.Default.MMRCLIPath;
+			if (File.Exists(mmrCLIPath)) {
+
+				// Get the necesary paths...
+				string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
+				string songtestPath = mmrFolder + "\\music\\_zmusicmanager-songtest.mmrs";
+				string outputRom = mmrFolder + "\\output\\_zmusicmanager-songtest.z64";
+				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\mmr-default-settings.json";
+
+				// First, we copy our current opened file to the MMR music folder
+				File.Copy(FileName, songtestPath, true);
+
+				// Next, we create the rom using MMR CLI
+				using (Process romCreationProcess = new Process()) {
+					romCreationProcess.StartInfo.FileName = mmrCLIPath;
+					romCreationProcess.StartInfo.Arguments = "-output \"" + outputRom
+						+ "\" -settings \"" + defaultMMRSettingsPath + "\"";
+					romCreationProcess.Start();
+					romCreationProcess.WaitForExit();
+					// TODO: Check if the generation was succesful
+				}
+
+				// Now we open the rom we just created
+				Process.Start(outputRom);
+
+				// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
+				File.Delete(songtestPath);
+
+			} else {
+				var result = SetupMMCustomMusicStarter();
+				if (result == DialogResult.OK) btnPreview_Click(sender, e);
+			}
 		}
 	}
 }
