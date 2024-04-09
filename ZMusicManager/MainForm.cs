@@ -239,5 +239,34 @@ namespace ZMusicManager {
 
 			return DialogResult.None;
 		}
+
+
+
+
+		// CONVERSION TOOLS
+
+		private void btnConvert_Click(object sender, EventArgs e) {
+			// TODO:
+
+			// METHOD 1
+			// Fill this data to the other format's form
+			// Copy all the data to the new format
+			// Do a Save As in the other form
+
+			// METHOD 2
+			// Do an immediate Save As, and copy the file to the new filename provided
+			// With that new file create, proceed to edit its data (so we leave any additional files intact)
+			// Open the new file with the corresponding form
+
+			// Maintain the new file open on the other form
+		}
+
+		private void btnBulkConvertToOOTRS_Click(object sender, EventArgs e) {
+			// TODO: NEW FORM...
+		}
+
+		private void btnBulkConvertToMMRS_Click(object sender, EventArgs e) {
+			// TODO: NEW FORM...
+		}
 	}
 }

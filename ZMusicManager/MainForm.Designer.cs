@@ -31,16 +31,21 @@
 			this.btnSaveAs = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.convertToMMRSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.bulkConvertToMMRSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnConvert = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnBulkConvertToMMRS = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnSetupOoTCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnSetupMMCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnDJGithub = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnDJDiscord = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnGuideCreatingMusicFiles = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnSetupMMCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnBulkConvertToOOTRS = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
 			this.msMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -63,8 +68,10 @@
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnNew,
             this.btnOpen,
+            this.toolStripMenuItem4,
             this.btnSave,
             this.btnSaveAs,
+            this.toolStripMenuItem3,
             this.btnExit});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
@@ -73,60 +80,63 @@
 			// btnNew
 			// 
 			this.btnNew.Name = "btnNew";
-			this.btnNew.Size = new System.Drawing.Size(144, 26);
+			this.btnNew.Size = new System.Drawing.Size(216, 26);
 			this.btnNew.Text = "New";
 			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
 			// 
 			// btnOpen
 			// 
 			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(144, 26);
+			this.btnOpen.Size = new System.Drawing.Size(216, 26);
 			this.btnOpen.Text = "Open...";
 			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
 			// btnSave
 			// 
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(144, 26);
+			this.btnSave.Size = new System.Drawing.Size(216, 26);
 			this.btnSave.Text = "Save";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// btnSaveAs
 			// 
 			this.btnSaveAs.Name = "btnSaveAs";
-			this.btnSaveAs.Size = new System.Drawing.Size(144, 26);
+			this.btnSaveAs.Size = new System.Drawing.Size(216, 26);
 			this.btnSaveAs.Text = "Save As...";
 			this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
 			// 
 			// btnExit
 			// 
 			this.btnExit.Name = "btnExit";
-			this.btnExit.Size = new System.Drawing.Size(144, 26);
+			this.btnExit.Size = new System.Drawing.Size(216, 26);
 			this.btnExit.Text = "Exit";
 			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
 			// convertToolStripMenuItem
 			// 
 			this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.convertToMMRSToolStripMenuItem,
-            this.bulkConvertToMMRSToolStripMenuItem});
+            this.btnConvert,
+            this.toolStripMenuItem1,
+            this.btnBulkConvertToOOTRS,
+            this.btnBulkConvertToMMRS});
 			this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
 			this.convertToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
 			this.convertToolStripMenuItem.Text = "Convert";
 			// 
-			// convertToMMRSToolStripMenuItem
+			// btnConvert
 			// 
-			this.convertToMMRSToolStripMenuItem.Enabled = false;
-			this.convertToMMRSToolStripMenuItem.Name = "convertToMMRSToolStripMenuItem";
-			this.convertToMMRSToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-			this.convertToMMRSToolStripMenuItem.Text = "Convert to MMRS";
+			this.btnConvert.Enabled = false;
+			this.btnConvert.Name = "btnConvert";
+			this.btnConvert.Size = new System.Drawing.Size(233, 26);
+			this.btnConvert.Text = "Convert to ...";
+			this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
 			// 
-			// bulkConvertToMMRSToolStripMenuItem
+			// btnBulkConvertToMMRS
 			// 
-			this.bulkConvertToMMRSToolStripMenuItem.Enabled = false;
-			this.bulkConvertToMMRSToolStripMenuItem.Name = "bulkConvertToMMRSToolStripMenuItem";
-			this.bulkConvertToMMRSToolStripMenuItem.Size = new System.Drawing.Size(230, 26);
-			this.bulkConvertToMMRSToolStripMenuItem.Text = "Bulk convert to MMRS";
+			this.btnBulkConvertToMMRS.Name = "btnBulkConvertToMMRS";
+			this.btnBulkConvertToMMRS.Size = new System.Drawing.Size(233, 26);
+			this.btnBulkConvertToMMRS.Text = "Bulk convert to MMRS";
+			this.btnBulkConvertToMMRS.Click += new System.EventHandler(this.btnBulkConvertToMMRS_Click);
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -144,13 +154,21 @@
 			this.btnSetupOoTCustomMusicStarter.Text = "Setup OoT custom music starter";
 			this.btnSetupOoTCustomMusicStarter.Click += new System.EventHandler(this.btnSetupOoTCustomMusicStarter_Click);
 			// 
+			// btnSetupMMCustomMusicStarter
+			// 
+			this.btnSetupMMCustomMusicStarter.Name = "btnSetupMMCustomMusicStarter";
+			this.btnSetupMMCustomMusicStarter.Size = new System.Drawing.Size(294, 26);
+			this.btnSetupMMCustomMusicStarter.Text = "Setup MM custom music starter";
+			this.btnSetupMMCustomMusicStarter.Click += new System.EventHandler(this.btnSetupMMCustomMusicStarter_Click);
+			// 
 			// helpToolStripMenuItem
 			// 
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAbout,
             this.btnDJGithub,
             this.btnDJDiscord,
-            this.btnGuideCreatingMusicFiles});
+            this.btnGuideCreatingMusicFiles,
+            this.toolStripMenuItem2,
+            this.btnAbout});
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
 			this.helpToolStripMenuItem.Text = "Help";
@@ -180,12 +198,32 @@
 			this.btnGuideCreatingMusicFiles.Size = new System.Drawing.Size(398, 26);
 			this.btnGuideCreatingMusicFiles.Text = "Guide: Creating music files for OoT Randomizer";
 			// 
-			// btnSetupMMCustomMusicStarter
+			// btnBulkConvertToOOTRS
 			// 
-			this.btnSetupMMCustomMusicStarter.Name = "btnSetupMMCustomMusicStarter";
-			this.btnSetupMMCustomMusicStarter.Size = new System.Drawing.Size(294, 26);
-			this.btnSetupMMCustomMusicStarter.Text = "Setup MM custom music starter";
-			this.btnSetupMMCustomMusicStarter.Click += new System.EventHandler(this.btnSetupMMCustomMusicStarter_Click);
+			this.btnBulkConvertToOOTRS.Name = "btnBulkConvertToOOTRS";
+			this.btnBulkConvertToOOTRS.Size = new System.Drawing.Size(233, 26);
+			this.btnBulkConvertToOOTRS.Text = "Bulk convert to OOTRS";
+			this.btnBulkConvertToOOTRS.Click += new System.EventHandler(this.btnBulkConvertToOOTRS_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(230, 6);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(395, 6);
+			// 
+			// toolStripMenuItem3
+			// 
+			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(213, 6);
+			// 
+			// toolStripMenuItem4
+			// 
+			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(213, 6);
 			// 
 			// MainForm
 			// 
@@ -213,8 +251,8 @@
 		private System.Windows.Forms.ToolStripMenuItem btnSaveAs;
 		private System.Windows.Forms.ToolStripMenuItem btnExit;
 		private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem convertToMMRSToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem bulkConvertToMMRSToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem btnConvert;
+		private System.Windows.Forms.ToolStripMenuItem btnBulkConvertToMMRS;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem btnAbout;
 		private System.Windows.Forms.ToolStripMenuItem btnDJGithub;
@@ -223,5 +261,10 @@
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem btnSetupOoTCustomMusicStarter;
 		private System.Windows.Forms.ToolStripMenuItem btnSetupMMCustomMusicStarter;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem btnBulkConvertToOOTRS;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 	}
 }
