@@ -58,17 +58,5 @@ namespace Z64MusicManager.Properties {
                 this["MMRCLIPath"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string MajoraMaskRomPath {
-            get {
-                return ((string)(this["MajoraMaskRomPath"]));
-            }
-            set {
-                this["MajoraMaskRomPath"] = value;
-            }
-        }
     }
 }

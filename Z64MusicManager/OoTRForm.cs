@@ -171,6 +171,7 @@ namespace Z64MusicManager{
 
 
 		// https://github.com/NewSoupVi/ootr-custom-music-starter
+		// TODO: Migrate all this code directly to this program.
 		private void btnPreview_Click(object sender, EventArgs e) {
 			
 			// Check if the custom music starter exists
