@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	public partial class MMRForm : MainForm {
 		public MMRForm() {
 			InitializeComponent();
@@ -73,7 +73,7 @@ namespace ZMusicManager {
 						}
 
 						// Set the title of the program as the current opened file
-						Text = Path.GetFileName(FileName) + " - ZMusic Manager";
+						Text = Path.GetFileName(FileName) + " - Z64 Music Manager";
 						UnsavedChanges = false;
 					}
 

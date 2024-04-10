@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	public class Z64Bank {
 		public string Id;
 		public string Name;

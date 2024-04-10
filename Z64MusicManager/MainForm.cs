@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	public partial class MainForm : Form {
 		public string FileName;
 		public bool UnsavedChanges = false;
@@ -49,7 +49,7 @@ namespace ZMusicManager {
 
 		protected void NewFile() {
 			CleanForm();
-			Text = "Untitled - ZMusic Manager";
+			Text = "Untitled - Z64 Music Manager";
 			UnsavedChanges = false;
 			FileName = null;
 		}
@@ -57,7 +57,7 @@ namespace ZMusicManager {
 		private void btnOpen_Click(object sender, EventArgs e) {
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
-			ofd.Filter = "ZSound Files(*.ootrs;*.mmrs)|*.ootrs;*.mmrs|All files (*.*)|*.*";
+			ofd.Filter = "Z64 Sound Files(*.ootrs;*.mmrs)|*.ootrs;*.mmrs|All files (*.*)|*.*";
 			ofd.RestoreDirectory = true;
 
 			// We show the open file dialog
@@ -241,6 +241,11 @@ namespace ZMusicManager {
 		}
 
 
+		// FILE ASSIGNMENT
+		// https://stackoverflow.com/questions/8407066/how-do-i-associate-a-filetype-with-an-icon
+		// https://learn.microsoft.com/en-us/windows/win32/shell/how-to-assign-a-custom-icon-to-a-file-type?redirectedfrom=MSDN
+		// https://learn.microsoft.com/en-us/previous-versions/windows/desktop/legacy/cc144156(v=vs.85)?redirectedfrom=MSDN
+		// https://stackoverflow.com/questions/4954037/which-wizard-control-can-i-use-in-a-winforms-application
 
 
 		// CONVERSION TOOLS

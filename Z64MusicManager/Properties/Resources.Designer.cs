@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ZMusicManager.Properties {
+namespace Z64MusicManager.Properties {
     using System;
     
     

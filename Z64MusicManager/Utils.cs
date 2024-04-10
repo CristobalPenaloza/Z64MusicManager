@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	class Utils {
 
 		public static IEnumerable<string> StreamReadAllLines(Func<Stream> streamProvider) {

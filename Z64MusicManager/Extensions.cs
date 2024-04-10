@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	public static class Extensions {
 		public static string BeforeMatch(this string input, string match) {
 			if (input == null) return null;

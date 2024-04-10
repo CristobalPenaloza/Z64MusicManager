@@ -1,4 +1,4 @@
-﻿namespace ZMusicManager {
+﻿namespace Z64MusicManager {
 	partial class MMRForm {
 		/// <summary>
 		/// Required designer variable.

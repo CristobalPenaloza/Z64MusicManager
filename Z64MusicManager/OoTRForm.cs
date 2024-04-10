@@ -12,7 +12,7 @@ using System.IO.Compression;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
 
-namespace ZMusicManager{
+namespace Z64MusicManager{
 	public partial class OoTRForm : MainForm {
 		public OoTRForm() {
 			InitializeComponent();
@@ -85,7 +85,7 @@ namespace ZMusicManager{
 						}
 						
 						// Set the title of the program as the current opened file
-						Text = Path.GetFileName(FileName) + " - ZMusic Manager";
+						Text = Path.GetFileName(FileName) + " - Z64 Music Manager";
 						UnsavedChanges = false;
 					}
 

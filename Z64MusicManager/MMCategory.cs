@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZMusicManager {
+namespace Z64MusicManager {
 	class MMCategory {
 		public string Id;
 		public string Name;

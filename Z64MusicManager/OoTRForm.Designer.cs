@@ -1,4 +1,4 @@
-﻿namespace ZMusicManager
+﻿namespace Z64MusicManager
 {
 	partial class OoTRForm
 	{
