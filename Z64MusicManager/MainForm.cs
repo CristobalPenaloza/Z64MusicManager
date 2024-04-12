@@ -32,6 +32,10 @@ namespace Z64MusicManager {
 			throw new NotImplementedException();
 		}
 
+		protected virtual void ConvertFile(string path) {
+			throw new NotImplementedException();
+		}
+
 
 
 		// GENERAL METHODS AND EVENT HANDLERS
@@ -251,19 +255,32 @@ namespace Z64MusicManager {
 		// CONVERSION TOOLS
 
 		private void btnConvert_Click(object sender, EventArgs e) {
-			// TODO:
 
-			// METHOD 1
-			// Fill this data to the other format's form
-			// Copy all the data to the new format
-			// Do a Save As in the other form
+			// First, we save the current staged changes
+			SaveFile(FileName);
 
-			// METHOD 2
-			// Do an immediate Save As, and copy the file to the new filename provided
-			// With that new file create, proceed to edit its data (so we leave any additional files intact)
-			// Open the new file with the corresponding form
+			// Do an immediate Save As in the inverted file type of this form
+			SaveFileDialog sfd = new SaveFileDialog();
+			sfd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
+			sfd.Filter = (Name == "OoTRForm") ?
+				"Majora's Mask Radomizer Sound Files (*.mmrs)|*.mmrs" :
+				"Ocarina of Time Radomizer Sound Files (*.ootrs)|*.ootrs";
+			sfd.RestoreDirectory = true;
+			
+			DialogResult result = sfd.ShowDialog();
+			if (result == DialogResult.OK) {
 
-			// Maintain the new file open on the other form
+				// Copy the current file to the new location
+				File.Copy(FileName, sfd.FileName, true);
+
+				// Now we convert on the new copied file
+				ConvertFile(sfd.FileName);
+
+				// Finally, we open the converted file
+				FileName = sfd.FileName;
+				OpenCurrentFile();
+			}
+
 		}
 
 		private void btnBulkConvertToOOTRS_Click(object sender, EventArgs e) {

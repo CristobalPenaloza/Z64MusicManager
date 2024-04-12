@@ -186,5 +186,55 @@ namespace Z64MusicManager{
 			}
 		}
 
+		
+		// Converts OOTRS to MMRS
+		protected override void ConvertFile(string path) {
+			try {
+				// Open the file in update mode
+				using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update)) {
+					string bankId = "";
+					string musicGroups = "";
+					string sequenceType = "";
+
+					// Recopile the data from the meta file
+					var metaEntry = archive.Entries.Where(e => e.Name.EndsWith(".meta")).FirstOrDefault();
+					using (var reader = new StreamReader(metaEntry.Open())) {
+						string line;
+						int lineIndex = 0;
+						while ((line = reader.ReadLine()) != null) {
+							if (lineIndex == 1) bankId = line;
+							else if (lineIndex == 2) sequenceType = line;
+							else if (lineIndex == 3) musicGroups = line;
+							lineIndex++;
+						}
+					}
+
+					// Remake the seq file to a zseq file
+					var seqEntry = archive.Entries.Where(e => e.Name.EndsWith(".seq")).FirstOrDefault();
+					var newZSeqEntry = archive.CreateEntry(ConversionTools.OoTBank2MMBank(bankId) + ".zseq");
+					using (var a = seqEntry.Open())
+					using (var b = newZSeqEntry.Open()) a.CopyTo(b);
+
+					// Create the categories.txt file
+					var categoriesEntry = archive.CreateEntry("categories.txt");
+					using (var ce = categoriesEntry.Open()) {
+						using (var writer = new StreamWriter(ce)) {
+							writer.Write(ConversionTools.OoTMusicGroups2MMCategories(musicGroups, sequenceType));
+						}
+					}
+
+					// Clean the ootrs files
+					metaEntry.Delete();
+					seqEntry.Delete();
+				}
+
+				// We are finished!
+
+
+			} catch (Exception ex) {
+				MessageBox.Show("We couldn't convert this file to MMRS, because of the following error: " + ex.Message, "Convert to MMRS error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
 	}
 }
