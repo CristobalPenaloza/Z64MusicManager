@@ -192,5 +192,55 @@ namespace Z64MusicManager {
 				if (result == DialogResult.OK) btnPreview_Click(sender, e);
 			}
 		}
+
+
+		protected override void ConvertFile(string path) {
+			string fileName = Path.GetFileNameWithoutExtension(path);
+
+			// Open the file in update mode
+			using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update)) {
+				
+				// Read the zseq file to get the bank
+				var zseqEntry = archive.Entries.Where(e => e.Name.EndsWith(".zseq")).FirstOrDefault();
+				string bankId = ConversionTools.MMBank2OoTBank(zseqEntry.Name.Replace(".zseq", ""));
+
+				// Read the categories file for the categories
+				var categoriesEntry = archive.Entries.Where(e => e.Name == "categories.txt").FirstOrDefault();
+				List<int> categories = new List<int>();
+				using (var reader = new StreamReader(categoriesEntry.Open())) {
+					string line = reader.ReadLine() ?? "";
+					categories = line.Split(',').Select(s => int.Parse(s)).ToList();
+				}
+
+				// Create the meta file
+				var metaEntry = archive.CreateEntry(fileName + ".meta");
+				using (var entryStream = metaEntry.Open()) {
+					using (var writer = new StreamWriter(entryStream)) {
+						writer.WriteLine(fileName); // Name
+						writer.WriteLine(bankId); // Bank
+						writer.WriteLine(ConversionTools.OoTSequenceTypeFromMMCategories(categories)); // Sequence type
+						writer.WriteLine(ConversionTools.MMCategories2OoTMusicGroups(categories)); // Music groups
+					}
+				}
+
+				// Rename the zseq file
+				zseqEntry.CopyToNewEntry(fileName + ".seq");
+				
+				// Rename the bank files
+				var bankEntries = archive.Entries.Where(e => e.Name.EndsWith(".zbank") || e.Name.EndsWith(".bankmeta")).ToList();
+				foreach (var currentEntry in bankEntries) {
+					string extension = Path.GetExtension(currentEntry.Name);
+					currentEntry.CopyToNewEntry("25" + extension);
+				}
+
+				// Clean the mmrs files
+				zseqEntry.Delete();
+				categoriesEntry.Delete();
+				foreach (var b in bankEntries) b.Delete();
+			}
+
+			// We are finished!
+		}
+
 	}
 }

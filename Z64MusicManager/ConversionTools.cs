@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Z64MusicManager {
 	class ConversionTools {
 
+		// BANKS
 		public static string OoTBank2MMBank(string ootBank) {
 			switch (ootBank) {
 				case "0x03": return "3"; // Hyrule Field
@@ -26,7 +28,27 @@ namespace Z64MusicManager {
 				default: return "28"; // For all the rest we need a custom bank
 			}
 		}
+		public static string MMBank2OoTBank(string mmBank) {
+			switch (mmBank) {
+				case "3": return "0x03";
+				case "4": return "0x05";
+				case "5": return "0x08";
+				case "6": return "0x09";
+				case "7": return "0x0D";
+				case "8": return "0x11";
+				case "9": return "0x12";
+				case "A": return "0x14";
+				case "B": return "0x15";
+				case "C": return "0x16";
+				case "D": return "0x1C";
+				case "E": return "0x1D";
+				case "F": return "0x23";
+				case "10": return "0x24";
+				default: return "-"; // For all the rest we need a custom bank
+			}
+		}
 
+		// MUSIC GROUPS / CATEGORIES
 		public static string OoTMusicGroups2MMCategories(string musicGroups, string sequenceType) {
 			List<int> categories = new List<int>();
 			List<string> mg = musicGroups.Split(',').ToList();
@@ -56,6 +78,66 @@ namespace Z64MusicManager {
 			// We make sure there are no duplicates, and they are on the right order
 			return string.Join(",", categories.Distinct().OrderBy(x => x));
 		}
+
+		public static string MMCategories2OoTMusicGroups(List<int> categories) {
+			List<string> musicGroups = new List<string>();
+
+			// We map using https://thesounddefense.github.io/musicgroups/ using the exact locations mapped to the high-specifity groups mapped in the method above
+			foreach (int category in categories) {
+				switch (category) {
+					case 0: // Field -> Fields
+						musicGroups.AddRange("HyruleField,LostWoods,GerudoValley,Fields,Outdoors,Overworld".Split(','));
+						break;
+					case 1: // Towns -> Town
+						musicGroups.AddRange("Market,CastleCourtyard,ZorasDomain,GoronCity,KokiriForest,LonLonRanch,KakarikoAdult,KakarikoChild,Town,Outdoors,Overworld".Split(','));
+						break;
+					case 2: // Dungeon -> ChildDungeon,AncientDungeon,MysticalDungeon,SpookyDungeon
+						musicGroups.AddRange("InsideDekuTree,DodongosCavern,JabuJabu,ForestTemple,IceCavern,FireTemple,WaterTemple,SpiritTemple,ShadowTemple,CastleUnderground,CastleEscape,ChildDungeon,AncientDungeon,MysticalDungeon,SpookyDungeon,AdultDungeon,Dungeon".Split(','));
+						break;
+					case 3: // Indoors -> House,SalesArea
+						musicGroups.AddRange("House,Shop,PotionShop,SalesArea,Indoors,Overworld".Split(','));
+						break;
+					case 4: // Minigame -> Fun
+						musicGroups.AddRange("Mini-game,HorseRace,ShootingGallery,Fun,Outdoors,Indoors,Overworld".Split(','));
+						break;
+					case 5: // Action -> SmallFight,VillainTheme
+						musicGroups.AddRange("Battle,MinibossBattle,GanondorfTheme,KotakeAndKoume,IngoTheme,SmallFight,VillainTheme,Fight,CharacterTheme".Split(','));
+						break;
+					case 6: // Calm -> MagicalPlace,WindmillHut
+						musicGroups.AddRange("WindmillHut,FairyFountain,TempleOfTime,ChamberOfTheSages,MagicalPlace,Indoors,Overworld".Split(','));
+						break;
+					case 7: // Boss fight -> BossFight,FinalFight
+						musicGroups.AddRange("BossBattle,FireBoss,GanondorfBattle,GanonBattle,BossFight,FinalFight,BigFight,Fight".Split(','));
+						break;
+					case 8: // Item get, Minigame win, Soaring CS -> ItemFanfare,SuccessFanfare,UtilitySong
+						musicGroups.AddRange("ItemGet,HeartContainerGet,HeartPieceGet,SpiritStoneGet,MedallionGet,LearnSong,BossDefeated,EscapeFromRanch,EponaRaceGoal,TreasureChest,ZeldaTurnsAround,DoorOfTime,MasterSword,SariasSong,SunsSong,SongOfTime,SongOfStorms,EponasSong,ZeldasLullaby,ItemFanfare,SuccessFanfare,BigFanfare,UtilitySong,EventFanfare,SongFanfare".Split(','));
+						break;
+					case 9: // Game over -> GameOver
+						musicGroups.AddRange("GameOver,EventFanfare".Split(','));
+						break;
+					case 10: // Area clear -> BigFanfare,WarpSong
+						musicGroups.AddRange("TreasureChest,MasterSword,DoorOfTime,GanondorfAppears,PreludeOfLight,BoleroOfFire,MinuetOfForest,SerenadeOfWater,RequiemOfSpirit,NocturneOfShadow,BigFanfare,WarpSong,EventFanfare,SongFanfare".Split(','));
+						break;
+					case 16: // Special -> HeroTheme
+						musicGroups.AddRange("TitleTheme,ZeldaTheme,SheikTheme,DekuTree,KaeporaGaebora,FairyFlying,HeroTheme,CharacterTheme".Split(','));
+						break;
+				}
+			}
+			
+			return string.Join(",", musicGroups.Distinct());
+		}
+
+		public static string OoTSequenceTypeFromMMCategories(List<int> categories) {
+			if (categories.Contains(8) || categories.Contains(9) || categories.Contains(10)) return "Fanfare";
+			else return "Bgm";
+		}
+
+
+
+
+		// Bank reconstruction stuff!
+		// https://github.com/OoTRandomizer/OoT-Randomizer/blob/35c60e9747852e8d63c2b91e4a392f35e59786fe/Audiobank.py
+
 
 	}
 }

@@ -1,12 +1,15 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Z64MusicManager {
 	public static class Extensions {
+
+		// STRING EXTENSIONS
 		public static string BeforeMatch(this string input, string match) {
 			if (input == null) return null;
 			int to = input.IndexOf(match);
@@ -35,5 +38,15 @@ namespace Z64MusicManager {
 			}
 			return input;
 		}
+
+
+		// ZIPARCHIVE EXTENSIONS
+		public static ZipArchiveEntry CopyToNewEntry(this ZipArchiveEntry entry, string copyName) {
+			ZipArchiveEntry copy = entry.Archive.CreateEntry(copyName);
+			using (var a = entry.Open())
+			using (var b = copy.Open()) a.CopyTo(b);
+			return copy;
+		}
+
 	}
 }

@@ -189,51 +189,58 @@ namespace Z64MusicManager{
 		
 		// Converts OOTRS to MMRS
 		protected override void ConvertFile(string path) {
-			try {
-				// Open the file in update mode
-				using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update)) {
-					string bankId = "";
-					string musicGroups = "";
-					string sequenceType = "";
+			// Open the file in update mode
+			using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update)) {
 
-					// Recopile the data from the meta file
-					var metaEntry = archive.Entries.Where(e => e.Name.EndsWith(".meta")).FirstOrDefault();
-					using (var reader = new StreamReader(metaEntry.Open())) {
-						string line;
-						int lineIndex = 0;
-						while ((line = reader.ReadLine()) != null) {
-							if (lineIndex == 1) bankId = line;
-							else if (lineIndex == 2) sequenceType = line;
-							else if (lineIndex == 3) musicGroups = line;
-							lineIndex++;
-						}
+				// First check if it uses custom samples
+				bool containsCustomSamples = archive.Entries.Any(e => e.Name.EndsWith(".zsound"));
+				if (containsCustomSamples) throw new NotSupportedException("This sequence contains custom samples, and those are currently supported in MMR.");
+
+				string bankId = "";
+				string musicGroups = "";
+				string sequenceType = "";
+
+				// Recopile the data from the meta file
+				var metaEntry = archive.Entries.Where(e => e.Name.EndsWith(".meta")).FirstOrDefault();
+				using (var reader = new StreamReader(metaEntry.Open())) {
+					string line;
+					int lineIndex = 0;
+					while ((line = reader.ReadLine()) != null) {
+						if (lineIndex == 1) bankId = line;
+						else if (lineIndex == 2) sequenceType = line;
+						else if (lineIndex == 3) musicGroups = line;
+						lineIndex++;
 					}
-
-					// Remake the seq file to a zseq file
-					var seqEntry = archive.Entries.Where(e => e.Name.EndsWith(".seq")).FirstOrDefault();
-					var newZSeqEntry = archive.CreateEntry(ConversionTools.OoTBank2MMBank(bankId) + ".zseq");
-					using (var a = seqEntry.Open())
-					using (var b = newZSeqEntry.Open()) a.CopyTo(b);
-
-					// Create the categories.txt file
-					var categoriesEntry = archive.CreateEntry("categories.txt");
-					using (var ce = categoriesEntry.Open()) {
-						using (var writer = new StreamWriter(ce)) {
-							writer.Write(ConversionTools.OoTMusicGroups2MMCategories(musicGroups, sequenceType));
-						}
-					}
-
-					// Clean the ootrs files
-					metaEntry.Delete();
-					seqEntry.Delete();
 				}
 
-				// We are finished!
+				// Remake the seq file to a zseq file and rename the bank to map to the MM custom bank
+				string mmBank = ConversionTools.OoTBank2MMBank(bankId);
+				var seqAndBankEntries = archive.Entries.Where(e => e.Name.EndsWith(".seq") || e.Name.EndsWith(".zbank") || e.Name.EndsWith(".bankmeta")).ToList();
+				foreach(var currentEntry in seqAndBankEntries) {
+					// Copy the current file, but with the new bank as it's name
+					string extension = Path.GetExtension(currentEntry.Name);
+					if (extension == ".seq") extension = ".zseq";
 
+					var newEntry = archive.CreateEntry(mmBank + extension);
+					using (var a = currentEntry.Open())
+					using (var b = newEntry.Open()) a.CopyTo(b);
+				}
+					
 
-			} catch (Exception ex) {
-				MessageBox.Show("We couldn't convert this file to MMRS, because of the following error: " + ex.Message, "Convert to MMRS error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				// Create the categories.txt file
+				var categoriesEntry = archive.CreateEntry("categories.txt");
+				using (var ce = categoriesEntry.Open()) {
+					using (var writer = new StreamWriter(ce)) {
+						writer.Write(ConversionTools.OoTMusicGroups2MMCategories(musicGroups, sequenceType));
+					}
+				}
+
+				// Clean the ootrs files
+				metaEntry.Delete();
+				foreach(var e in seqAndBankEntries) e.Delete();
 			}
+
+			// We are finished!
 		}
 
 	}

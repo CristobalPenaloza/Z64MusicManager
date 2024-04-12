@@ -129,7 +129,7 @@
 			// tbMainVolume
 			// 
 			this.tbMainVolume.Location = new System.Drawing.Point(133, 183);
-			this.tbMainVolume.Maximum = 127;
+			this.tbMainVolume.Maximum = 255;
 			this.tbMainVolume.Name = "tbMainVolume";
 			this.tbMainVolume.Size = new System.Drawing.Size(253, 56);
 			this.tbMainVolume.TabIndex = 11;

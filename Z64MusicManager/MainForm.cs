@@ -19,6 +19,11 @@ namespace Z64MusicManager {
 			InitializeComponent();
 		}
 
+		private void MainForm_Load(object sender, EventArgs e) {
+			btnConvert.Text = "Convert to " + (Name == "OoTRForm" ? "MMRS" : "OOTRS");
+		}
+
+
 		// VIRTUAL METHODS
 		protected virtual void CleanForm() {
 			throw new NotImplementedException();
@@ -262,6 +267,7 @@ namespace Z64MusicManager {
 			// Do an immediate Save As in the inverted file type of this form
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
+			sfd.FileName = Path.GetFileNameWithoutExtension(FileName);
 			sfd.Filter = (Name == "OoTRForm") ?
 				"Majora's Mask Radomizer Sound Files (*.mmrs)|*.mmrs" :
 				"Ocarina of Time Radomizer Sound Files (*.ootrs)|*.ootrs";
@@ -270,11 +276,21 @@ namespace Z64MusicManager {
 			DialogResult result = sfd.ShowDialog();
 			if (result == DialogResult.OK) {
 
-				// Copy the current file to the new location
-				File.Copy(FileName, sfd.FileName, true);
+				try {
+					// Copy the current file to the new location
+					File.Copy(FileName, sfd.FileName, true);
 
-				// Now we convert on the new copied file
-				ConvertFile(sfd.FileName);
+					// Now we convert on the new copied file
+					ConvertFile(sfd.FileName);
+
+				
+				} catch(Exception ex) {
+					// If there's any error in the process, we delete the new file
+					MessageBox.Show("We couldn't convert this file, because of the following error: " + ex.Message, "Conversion error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					File.Delete(sfd.FileName);
+					return;
+				}
+				
 
 				// Finally, we open the converted file
 				FileName = sfd.FileName;

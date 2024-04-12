@@ -130,8 +130,8 @@
             this.btnBulkConvertToOOTRS,
             this.btnBulkConvertToMMRS});
 			this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
-			this.convertToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
-			this.convertToolStripMenuItem.Text = "Convert";
+			this.convertToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
+			this.convertToolStripMenuItem.Text = "Tools";
 			// 
 			// btnConvert
 			// 
@@ -165,8 +165,8 @@
             this.btnSetupOoTCustomMusicStarter,
             this.btnSetupMMCustomMusicStarter});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
-			this.toolsToolStripMenuItem.Text = "Tools";
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
+			this.toolsToolStripMenuItem.Text = "Setup";
 			// 
 			// btnSetupOoTCustomMusicStarter
 			// 
@@ -233,6 +233,7 @@
 			this.Name = "MainForm";
 			this.Text = "ZMusic Manager";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.msMainMenu.ResumeLayout(false);
 			this.msMainMenu.PerformLayout();
 			this.ResumeLayout(false);
