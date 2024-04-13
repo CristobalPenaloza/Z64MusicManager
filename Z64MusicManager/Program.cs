@@ -18,10 +18,23 @@ namespace Z64MusicManager
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			string[] args = Environment.GetCommandLineArgs();
-			//string fileName = args[1]; // <-- TODO: CHECK IF FILENAME EXISTS, AND ADD IT TO THE FORM VIA CONSTRUCTOR
+
+			MainForm form;
+			if(args.Length > 1) {
+				string fileName = args[1];
+				if (fileName.EndsWith(".ootrs")) form = new OoTRForm();
+				else form = new MMRForm();
+
+				form.FileName = fileName;
+				form.OpenCurrentFile();
+
+			} else {
+				form = new OoTRForm();
+			}
+			
 
 			// TODO: CREATE MULTIPLE FORMS FOR MMRS FILES
-			Application.Run(new OoTRForm());
+			Application.Run(form);
 		}
 	}
 }

@@ -83,7 +83,7 @@ namespace Z64MusicManager {
 			}
 		}
 
-		private void OpenCurrentFile() {
+		public void OpenCurrentFile() {
 			// If the current file is empty or if it's NOT a compatible file, we try to create a new file
 			if (string.IsNullOrWhiteSpace(FileName) || (!FileName.EndsWith(".ootrs") && !FileName.EndsWith(".mmrs"))) {
 				NewFile();
@@ -208,6 +208,7 @@ namespace Z64MusicManager {
 				DialogResult ofdResult = ofd.ShowDialog();
 				if (ofdResult == DialogResult.OK) {
 					Properties.Settings.Default.OoTMusicStarterPath = ofd.FileName;
+					Properties.Settings.Default.Save();
 					return DialogResult.OK;
 				}
 			}
@@ -242,6 +243,7 @@ namespace Z64MusicManager {
 				DialogResult ofdResult = ofd.ShowDialog();
 				if (ofdResult == DialogResult.OK) {
 					Properties.Settings.Default.MMRCLIPath = ofd.FileName;
+					Properties.Settings.Default.Save();
 					return DialogResult.OK;
 				}
 			}
@@ -257,12 +259,18 @@ namespace Z64MusicManager {
 		// https://stackoverflow.com/questions/4954037/which-wizard-control-can-i-use-in-a-winforms-application
 
 
-		// CONVERSION TOOLS
+
+
+		// CONVERSION
 
 		private void btnConvert_Click(object sender, EventArgs e) {
 
 			// First, we save the current staged changes
 			SaveFile(FileName);
+
+			// Now we do a small check to see if we have a custom bank
+			// TODO: If we do, notify the user about it
+
 
 			// Do an immediate Save As in the inverted file type of this form
 			SaveFileDialog sfd = new SaveFileDialog();

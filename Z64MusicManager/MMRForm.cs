@@ -167,6 +167,8 @@ namespace Z64MusicManager {
 				string songtestPath = mmrFolder + "\\music\\_zmusicmanager-songtest.mmrs";
 				string outputRom = mmrFolder + "\\output\\_zmusicmanager-songtest.z64";
 				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\mmr-default-settings.json";
+				// PUEDE QUE NO ESTÉ ENCONTRANDO EL ARCHIVO DE LOS SETTINGS....
+				// PROBAR SIN EL DEFAULT SETTINGS.
 
 				// First, we copy our current opened file to the MMR music folder
 				File.Copy(FileName, songtestPath, true);
