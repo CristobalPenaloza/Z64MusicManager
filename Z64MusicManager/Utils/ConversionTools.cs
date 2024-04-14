@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Z64MusicManager {
+namespace Z64MusicManager.Utils {
 	class ConversionTools {
 
 		// BANKS

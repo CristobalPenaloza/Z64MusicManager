@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_3BCFC7E0FD8D4E1AB8FA5D8C1D313542"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_47114CB17F6637B61BD22408A7AB69DA"
         "OwnerKey" = "8:_BDB5C20DC74A4F6295DD96468603D889"
         "MsmSig" = "8:_UNDEFINED"
@@ -184,26 +178,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3BCFC7E0FD8D4E1AB8FA5D8C1D313542"
-            {
-            "SourcePath" = "8:..\\Z64MusicManager\\mmr-default-settings.json"
-            "TargetName" = "8:mmr-default-settings.json"
-            "Tag" = "8:"
-            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_47114CB17F6637B61BD22408A7AB69DA"
             {
             "AssemblyRegister" = "3:1"
@@ -462,7 +436,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Z64 Music Manager"
         "ProductCode" = "8:{238B08E2-DFB2-4679-800F-C33EEBDB7722}"
-        "PackageCode" = "8:{A9204006-1A24-481E-B355-C546FC73B0CE}"
+        "PackageCode" = "8:{17A023A2-FA7F-4430-8CA4-137B3521507E}"
         "UpgradeCode" = "8:{9C864BDB-2E40-4138-A5A5-226C978B6FFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -981,6 +955,34 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6CA5CE20270C4098A9DFE188891F6B24"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{D68AAAE0-87DD-49B7-BBBD-91BF6B2D315A}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BDB5C20DC74A4F6295DD96468603D889"
             {
             "SourcePath" = "8:..\\Z64MusicManager\\obj\\Release\\Z64MusicManager.exe"

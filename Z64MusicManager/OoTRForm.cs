@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.IO.Compression;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
+using Z64MusicManager.Utils;
 
 namespace Z64MusicManager{
 	public partial class OoTRForm : MainForm {
@@ -79,7 +80,7 @@ namespace Z64MusicManager{
 							// Process the .seq file
 							if (extension == ".seq") {
 								// Search the file until we find the master volume command (0xDB)
-								int mainVolume = Utils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
+								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
 							}
 						}
@@ -133,7 +134,7 @@ namespace Z64MusicManager{
 						// Modify the meta file with the forms data
 						if (extension == ".meta") {
 							// Get all lines of the meta file
-							List<string> lines = Utils.StreamReadAllLines(() => entry.Open()).ToList();
+							List<string> lines = StreamUtils.StreamReadAllLines(() => entry.Open()).ToList();
 
 							// Make sure we have enough space to fit all the data
 							if (lines.Count < 4) {
@@ -157,7 +158,7 @@ namespace Z64MusicManager{
 
 							// Modify the volume of the seq file
 						} else if (extension == ".seq") {
-							Utils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
+							SeqUtils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
 						}
 					}
 				}

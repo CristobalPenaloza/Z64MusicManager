@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Z64MusicManager.Utils;
 
 namespace Z64MusicManager {
 	public partial class MMRForm : MainForm {
@@ -67,7 +68,7 @@ namespace Z64MusicManager {
 								cbxBank.SelectedItem = Z64Bank.MMBanks.Where(b => b.Id == bank).FirstOrDefault();
 
 								// Search the file until we find the master volume command (0xDB)
-								int mainVolume = Utils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
+								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
 							}
 						}
@@ -138,7 +139,7 @@ namespace Z64MusicManager {
 
 						} else if (extension == ".zseq") {
 							// Modify the volume of the seq file
-							Utils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
+							SeqUtils.ReplaceSeqCommandValue(() => entry.Open(), 0xDB, tbMainVolume.Value);
 						}
 					}
 				}
@@ -166,7 +167,7 @@ namespace Z64MusicManager {
 				string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
 				string songtestPath = mmrFolder + "\\music\\_zmusicmanager-songtest.mmrs";
 				string outputRom = mmrFolder + "\\output\\_zmusicmanager-songtest.z64";
-				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\mmr-default-settings.json";
+				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\Assets\\mmr-default-settings.json";
 				// PUEDE QUE NO ESTÉ ENCONTRANDO EL ARCHIVO DE LOS SETTINGS....
 				// PROBAR SIN EL DEFAULT SETTINGS.
 

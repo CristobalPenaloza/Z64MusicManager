@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -267,10 +268,15 @@ namespace Z64MusicManager {
 
 			// First, we save the current staged changes
 			SaveFile(FileName);
-
+			
 			// Now we do a small check to see if we have a custom bank
-			// TODO: If we do, notify the user about it
-
+			// If we do, notify the user about it...
+			using (ZipArchive archive = ZipFile.OpenRead(FileName)) {
+				if(archive.Entries.Any(en => en.Name.EndsWith(".zbank"))) {
+					DialogResult dr = MessageBox.Show("This file contains custom banks!\n\nThe conversion will work, but it'll probably just sound like garbled noise. You will need to manually create a new custom bank for it to sound correctly.\n\nDo you wish to continue?", "Custom bank warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+					if (dr == DialogResult.Cancel) return;
+				}
+			}
 
 			// Do an immediate Save As in the inverted file type of this form
 			SaveFileDialog sfd = new SaveFileDialog();
@@ -299,7 +305,6 @@ namespace Z64MusicManager {
 					return;
 				}
 				
-
 				// Finally, we open the converted file
 				FileName = sfd.FileName;
 				OpenCurrentFile();

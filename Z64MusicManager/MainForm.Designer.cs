@@ -34,17 +34,10 @@
 			this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnConvert = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-			this.btnBulkConvertToOOTRS = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnBulkConvertToMMRS = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnSetupOoTCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnSetupMMCustomMusicStarter = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnDJGithub = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnDJDiscord = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnGuideCreatingMusicFiles = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.msMainMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -125,10 +118,7 @@
 			// convertToolStripMenuItem
 			// 
 			this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnConvert,
-            this.toolStripMenuItem1,
-            this.btnBulkConvertToOOTRS,
-            this.btnBulkConvertToMMRS});
+            this.btnConvert});
 			this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
 			this.convertToolStripMenuItem.Size = new System.Drawing.Size(56, 24);
 			this.convertToolStripMenuItem.Text = "Tools";
@@ -136,28 +126,9 @@
 			// btnConvert
 			// 
 			this.btnConvert.Name = "btnConvert";
-			this.btnConvert.Size = new System.Drawing.Size(233, 26);
+			this.btnConvert.Size = new System.Drawing.Size(216, 26);
 			this.btnConvert.Text = "Convert to ...";
 			this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
-			// 
-			// toolStripMenuItem1
-			// 
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(230, 6);
-			// 
-			// btnBulkConvertToOOTRS
-			// 
-			this.btnBulkConvertToOOTRS.Name = "btnBulkConvertToOOTRS";
-			this.btnBulkConvertToOOTRS.Size = new System.Drawing.Size(233, 26);
-			this.btnBulkConvertToOOTRS.Text = "Bulk convert to OOTRS";
-			this.btnBulkConvertToOOTRS.Click += new System.EventHandler(this.btnBulkConvertToOOTRS_Click);
-			// 
-			// btnBulkConvertToMMRS
-			// 
-			this.btnBulkConvertToMMRS.Name = "btnBulkConvertToMMRS";
-			this.btnBulkConvertToMMRS.Size = new System.Drawing.Size(233, 26);
-			this.btnBulkConvertToMMRS.Text = "Bulk convert to MMRS";
-			this.btnBulkConvertToMMRS.Click += new System.EventHandler(this.btnBulkConvertToMMRS_Click);
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -185,37 +156,10 @@
 			// helpToolStripMenuItem
 			// 
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnDJGithub,
-            this.btnDJDiscord,
-            this.btnGuideCreatingMusicFiles,
-            this.toolStripMenuItem2,
             this.btnAbout});
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
 			this.helpToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
 			this.helpToolStripMenuItem.Text = "Help";
-			// 
-			// btnDJGithub
-			// 
-			this.btnDJGithub.Name = "btnDJGithub";
-			this.btnDJGithub.Size = new System.Drawing.Size(398, 26);
-			this.btnDJGithub.Text = "Darunia\'s Joy GitHub repository";
-			// 
-			// btnDJDiscord
-			// 
-			this.btnDJDiscord.Name = "btnDJDiscord";
-			this.btnDJDiscord.Size = new System.Drawing.Size(398, 26);
-			this.btnDJDiscord.Text = "Darunia\'s Joy Discord";
-			// 
-			// btnGuideCreatingMusicFiles
-			// 
-			this.btnGuideCreatingMusicFiles.Name = "btnGuideCreatingMusicFiles";
-			this.btnGuideCreatingMusicFiles.Size = new System.Drawing.Size(398, 26);
-			this.btnGuideCreatingMusicFiles.Text = "Guide: Creating music files for OoT Randomizer";
-			// 
-			// toolStripMenuItem2
-			// 
-			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(395, 6);
 			// 
 			// btnAbout
 			// 
@@ -230,6 +174,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(401, 339);
 			this.Controls.Add(this.msMainMenu);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.MaximizeBox = false;
 			this.Name = "MainForm";
 			this.Text = "ZMusic Manager";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
@@ -252,18 +198,11 @@
 		private System.Windows.Forms.ToolStripMenuItem btnExit;
 		private System.Windows.Forms.ToolStripMenuItem convertToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem btnConvert;
-		private System.Windows.Forms.ToolStripMenuItem btnBulkConvertToMMRS;
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem btnAbout;
-		private System.Windows.Forms.ToolStripMenuItem btnDJGithub;
-		private System.Windows.Forms.ToolStripMenuItem btnDJDiscord;
-		private System.Windows.Forms.ToolStripMenuItem btnGuideCreatingMusicFiles;
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem btnSetupOoTCustomMusicStarter;
 		private System.Windows.Forms.ToolStripMenuItem btnSetupMMCustomMusicStarter;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-		private System.Windows.Forms.ToolStripMenuItem btnBulkConvertToOOTRS;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
 	}

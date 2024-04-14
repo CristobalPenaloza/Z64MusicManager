@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z64MusicManager {
+namespace Z64MusicManager.Utils {
 	public static class Extensions {
 
 		// STRING EXTENSIONS
