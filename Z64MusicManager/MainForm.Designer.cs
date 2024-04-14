@@ -126,7 +126,7 @@
 			// btnConvert
 			// 
 			this.btnConvert.Name = "btnConvert";
-			this.btnConvert.Size = new System.Drawing.Size(216, 26);
+			this.btnConvert.Size = new System.Drawing.Size(166, 26);
 			this.btnConvert.Text = "Convert to ...";
 			this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
 			// 
@@ -163,10 +163,10 @@
 			// 
 			// btnAbout
 			// 
-			this.btnAbout.Enabled = false;
 			this.btnAbout.Name = "btnAbout";
-			this.btnAbout.Size = new System.Drawing.Size(398, 26);
-			this.btnAbout.Text = "About ZMusic Manager";
+			this.btnAbout.Size = new System.Drawing.Size(216, 26);
+			this.btnAbout.Text = "About";
+			this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
 			// 
 			// MainForm
 			// 

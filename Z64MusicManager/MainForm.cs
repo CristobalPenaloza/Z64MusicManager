@@ -164,8 +164,6 @@ namespace Z64MusicManager {
 			Application.Exit();
 		}
 
-		// TODO: OPEN OOTRS FILES https://stackoverflow.com/questions/2144370/winform-application-to-launch-and-read-from-a-file-with-custom-extension
-
 
 
 
@@ -253,15 +251,6 @@ namespace Z64MusicManager {
 		}
 
 
-		// FILE ASSIGNMENT
-		// https://stackoverflow.com/questions/8407066/how-do-i-associate-a-filetype-with-an-icon
-		// https://learn.microsoft.com/en-us/windows/win32/shell/how-to-assign-a-custom-icon-to-a-file-type?redirectedfrom=MSDN
-		// https://learn.microsoft.com/en-us/previous-versions/windows/desktop/legacy/cc144156(v=vs.85)?redirectedfrom=MSDN
-		// https://stackoverflow.com/questions/4954037/which-wizard-control-can-i-use-in-a-winforms-application
-
-
-
-
 		// CONVERSION
 
 		private void btnConvert_Click(object sender, EventArgs e) {
@@ -318,6 +307,11 @@ namespace Z64MusicManager {
 
 		private void btnBulkConvertToMMRS_Click(object sender, EventArgs e) {
 			// TODO: NEW FORM...
+		}
+
+		private void btnAbout_Click(object sender, EventArgs e) {
+			AboutForm aboutForm = new AboutForm();
+			aboutForm.Show();
 		}
 	}
 }
