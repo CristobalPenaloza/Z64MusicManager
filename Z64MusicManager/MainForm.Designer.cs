@@ -26,6 +26,8 @@
 			this.msMainMenu = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnNew = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnNewOOTRSFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnNewMMRSFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnOpen = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
 			this.btnSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,46 +74,62 @@
 			// 
 			// btnNew
 			// 
+			this.btnNew.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnNewOOTRSFile,
+            this.btnNewMMRSFile});
 			this.btnNew.Name = "btnNew";
-			this.btnNew.Size = new System.Drawing.Size(144, 26);
+			this.btnNew.Size = new System.Drawing.Size(216, 26);
 			this.btnNew.Text = "New";
-			this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+			// 
+			// btnNewOOTRSFile
+			// 
+			this.btnNewOOTRSFile.Name = "btnNewOOTRSFile";
+			this.btnNewOOTRSFile.Size = new System.Drawing.Size(216, 26);
+			this.btnNewOOTRSFile.Text = "OOTRS file";
+			this.btnNewOOTRSFile.Click += new System.EventHandler(this.btnNewOOTRSFile_Click);
+			// 
+			// btnNewMMRSFile
+			// 
+			this.btnNewMMRSFile.Name = "btnNewMMRSFile";
+			this.btnNewMMRSFile.Size = new System.Drawing.Size(216, 26);
+			this.btnNewMMRSFile.Text = "MMRS file";
+			this.btnNewMMRSFile.Click += new System.EventHandler(this.btnNewMMRSFile_Click);
 			// 
 			// btnOpen
 			// 
 			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(144, 26);
+			this.btnOpen.Size = new System.Drawing.Size(216, 26);
 			this.btnOpen.Text = "Open...";
 			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(141, 6);
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(213, 6);
 			// 
 			// btnSave
 			// 
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(144, 26);
+			this.btnSave.Size = new System.Drawing.Size(216, 26);
 			this.btnSave.Text = "Save";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// btnSaveAs
 			// 
 			this.btnSaveAs.Name = "btnSaveAs";
-			this.btnSaveAs.Size = new System.Drawing.Size(144, 26);
+			this.btnSaveAs.Size = new System.Drawing.Size(216, 26);
 			this.btnSaveAs.Text = "Save As...";
 			this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
 			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(141, 6);
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(213, 6);
 			// 
 			// btnExit
 			// 
 			this.btnExit.Name = "btnExit";
-			this.btnExit.Size = new System.Drawing.Size(144, 26);
+			this.btnExit.Size = new System.Drawing.Size(216, 26);
 			this.btnExit.Text = "Exit";
 			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
@@ -164,7 +182,7 @@
 			// btnAbout
 			// 
 			this.btnAbout.Name = "btnAbout";
-			this.btnAbout.Size = new System.Drawing.Size(216, 26);
+			this.btnAbout.Size = new System.Drawing.Size(125, 26);
 			this.btnAbout.Text = "About";
 			this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
 			// 
@@ -205,5 +223,7 @@
 		private System.Windows.Forms.ToolStripMenuItem btnSetupMMCustomMusicStarter;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+		private System.Windows.Forms.ToolStripMenuItem btnNewOOTRSFile;
+		private System.Windows.Forms.ToolStripMenuItem btnNewMMRSFile;
 	}
 }

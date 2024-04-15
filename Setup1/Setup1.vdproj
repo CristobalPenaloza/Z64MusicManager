@@ -128,6 +128,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -200,7 +208,7 @@
                     "_47114CB17F6637B61BD22408A7AB69DA"
                     {
                     "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
+                    "Attributes" = "3:514"
                     }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
@@ -211,7 +219,7 @@
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -1037,7 +1045,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BDB5C20DC74A4F6295DD96468603D889"
             {
-            "SourcePath" = "8:..\\Z64MusicManager\\obj\\Release\\Z64MusicManager.exe"
+            "SourcePath" = "8:..\\Z64MusicManager\\obj\\Debug\\Z64MusicManager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"

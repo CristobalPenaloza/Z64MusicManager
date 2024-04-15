@@ -53,8 +53,14 @@ namespace Z64MusicManager {
 			}
 		}
 
-		private void btnNew_Click(object sender, EventArgs e) {
-			NewFile();
+		private void btnNewOOTRSFile_Click(object sender, EventArgs e) {
+			var form = SwapForm("OoTRForm");
+			form.NewFile();
+		}
+
+		private void btnNewMMRSFile_Click(object sender, EventArgs e) {
+			var form = SwapForm("MMRForm");
+			form.NewFile();
 		}
 
 		protected void NewFile() {
@@ -84,16 +90,9 @@ namespace Z64MusicManager {
 			}
 		}
 
-		public void OpenCurrentFile() {
-			// If the current file is empty or if it's NOT a compatible file, we try to create a new file
-			if (string.IsNullOrWhiteSpace(FileName) || (!FileName.EndsWith(".ootrs") && !FileName.EndsWith(".mmrs"))) {
-				NewFile();
-				return;
-			}
-
-			if (FileName.EndsWith(".ootrs")) {
-				// We change the current form to be an OoTR form
-				if (Name == "OoTRForm") FillFormWithCurrentFile();
+		private MainForm SwapForm(string formType) {
+			if(formType == "OoTRForm") {
+				if (Name == "OoTRForm") return this;
 				else {
 					OoTRForm ootrForm = null;
 					foreach (OoTRForm form in Application.OpenForms.OfType<OoTRForm>()) ootrForm = form;
@@ -105,11 +104,12 @@ namespace Z64MusicManager {
 					ootrForm.FillFormWithCurrentFile();
 					ootrForm.Show();
 					Hide();
+
+					return ootrForm;
 				}
 
-			} else if (FileName.EndsWith(".mmrs")) {
-				// We change the current form to be an MMR form
-				if (Name == "MMRForm") FillFormWithCurrentFile();
+			} else {
+				if (Name == "MMRForm") return this;
 				else {
 					MMRForm mmrForm = null;
 					foreach (MMRForm form in Application.OpenForms.OfType<MMRForm>()) mmrForm = form;
@@ -121,9 +121,21 @@ namespace Z64MusicManager {
 					mmrForm.StartPosition = FormStartPosition.Manual;
 					mmrForm.Show();
 					Hide();
-				}
 
+					return mmrForm;
+				}
 			}
+		}
+
+		public void OpenCurrentFile() {
+			// If the current file is empty or if it's NOT a compatible file, we try to create a new file
+			if (string.IsNullOrWhiteSpace(FileName) || (!FileName.EndsWith(".ootrs") && !FileName.EndsWith(".mmrs"))) {
+				NewFile();
+				return;
+			}
+
+			var form = SwapForm(FileName.EndsWith(".ootrs") ? "OoTRForm" : "MMRForm");
+			form.FillFormWithCurrentFile();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e) {
@@ -313,5 +325,7 @@ namespace Z64MusicManager {
 			AboutForm aboutForm = new AboutForm();
 			aboutForm.Show();
 		}
+
+		
 	}
 }
