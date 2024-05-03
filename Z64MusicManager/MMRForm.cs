@@ -51,7 +51,7 @@ namespace Z64MusicManager {
 									// Categories
 									// This file should only have one line, so we only read that
 									string line = reader.ReadLine() ?? "";
-									string[] categories = line.Split(',');
+									string[] categories = line.Split(',', '-');
 
 									for(int i = 0; i < clbCategories.Items.Count; i++) {
 										string itemValue = clbCategories.Items[i].ToString().Between("[", "]");
@@ -167,7 +167,7 @@ namespace Z64MusicManager {
 				string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
 				string songtestPath = mmrFolder + "\\music\\_zmusicmanager-songtest.mmrs";
 				string outputRom = mmrFolder + "\\output\\_zmusicmanager-songtest.z64";
-				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\Assets\\mmr-default-settings.json";
+				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\mmr-default-settings.json";
 				// PUEDE QUE NO ESTÉ ENCONTRANDO EL ARCHIVO DE LOS SETTINGS....
 				// PROBAR SIN EL DEFAULT SETTINGS.
 

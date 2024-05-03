@@ -203,22 +203,26 @@ namespace Z64MusicManager {
 		protected DialogResult SetupOoTCustomMusicStarter() {
 			// TODO: Make this an original form, instead of this hacky messagebox.
 			string caption = "OOT custom music starter not setup!";
-			string text = "To preview OOTRS files on emulator:\n\n1. Download NewSoupVi's custom music starter script from the Help button and set it up.\n\n2. Press OK on this message box, and select the CustomMusicStarter.bat file that you set up earlier.\n\n3. Enjoy! ";
+			string text = "To preview OOTRS files on emulator:\n\n"
+				+ "1. Download and install an n64 emulator, and set it up so it opens .z64 files by default.\n\n"
+				+ "2. Download and setup OoT Randomizer.\n\n"
+				+ "3. Make sure OoT Randomizer can generate games (provide the necessary ROM).\n\n"
+				+ "4. Press OK on this message box, and select the OoTRandomizer.py file that's inside your instalation of OoT Randomizer"
+				+ "5. Enjoy! ";
 			DialogResult mbResult = MessageBox.Show(
 				text, caption, MessageBoxButtons.OKCancel,
-				MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0,
-				"https://github.com/NewSoupVi/ootr-custom-music-starter");
+				MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0);
 
 			if (mbResult == DialogResult.OK) {
 				OpenFileDialog ofd = new OpenFileDialog();
 				ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
-				ofd.Filter = "CustomMusicStarter.bat|CustomMusicStarter.bat";
+				ofd.Filter = "OoTRandomizer.py|OoTRandomizer.py";
 				ofd.RestoreDirectory = true;
 
 				// We show the open file dialog
 				DialogResult ofdResult = ofd.ShowDialog();
 				if (ofdResult == DialogResult.OK) {
-					Properties.Settings.Default.OoTMusicStarterPath = ofd.FileName;
+					Properties.Settings.Default.OOTRCLIPPath = ofd.FileName;
 					Properties.Settings.Default.Save();
 					return DialogResult.OK;
 				}

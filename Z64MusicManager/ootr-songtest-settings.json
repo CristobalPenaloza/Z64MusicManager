@@ -1,0 +1,13 @@
+{
+	"enable_cosmetic_file": "True",
+	"cosmetic_file": "./ootr-songtest-cosmeticplando.json",
+	"output_file": "_zmusicmanager-songtest",
+	"create_compressed_rom": "True",
+	"create_spoiler": "False",
+	"create_cosmetics_log": "False",
+	"logic_rules": "none",
+	"starting_items": {
+		"Ocarina": 1,
+		"Zeldas Lullaby": 1
+	}
+}

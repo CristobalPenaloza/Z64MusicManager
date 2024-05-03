@@ -38,24 +38,24 @@ namespace Z64MusicManager.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string OoTMusicStarterPath {
-            get {
-                return ((string)(this["OoTMusicStarterPath"]));
-            }
-            set {
-                this["OoTMusicStarterPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string MMRCLIPath {
             get {
                 return ((string)(this["MMRCLIPath"]));
             }
             set {
                 this["MMRCLIPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OOTRCLIPPath {
+            get {
+                return ((string)(this["OOTRCLIPPath"]));
+            }
+            set {
+                this["OOTRCLIPPath"] = value;
             }
         }
     }

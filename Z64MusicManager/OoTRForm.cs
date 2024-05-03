@@ -176,10 +176,65 @@ namespace Z64MusicManager{
 		private void btnPreview_Click(object sender, EventArgs e) {
 			
 			// Check if the custom music starter exists
-			string ootMusicStarter = Properties.Settings.Default.OoTMusicStarterPath;
-			if (File.Exists(ootMusicStarter)) {
-				ProcessStartInfo sInfo = new ProcessStartInfo(ootMusicStarter, "\"" + FileName + "\"");
-				Process.Start(sInfo);
+			string ootrCLIPath = Properties.Settings.Default.OOTRCLIPPath;
+			if (File.Exists(ootrCLIPath)) {
+
+				// Get the necesary paths
+				string ootrFolder = Path.GetDirectoryName(ootrCLIPath);
+				string songtestPath = ootrFolder + "\\data\\Music\\_zmusicmanager-songtest.ootrs";
+				string outputRom = ootrFolder + "\\Output\\_zmusicmanager-songtest.z64";
+				string ootrSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-settings.json";
+				string ootrCosmeticPlandoPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-cosmeticplando.json";
+				string pythonPath = WinUtils.GetPythonPath();
+
+				// First, we copy our current opened file to the OoTR music folder
+				File.Copy(FileName, songtestPath, true);
+
+				// We also change the internal name of the song for easy matching
+				using (ZipArchive archive = ZipFile.Open(songtestPath, ZipArchiveMode.Update)) {
+					var metaEntry = archive.Entries.Where(entry => entry.Name.EndsWith(".meta")).FirstOrDefault();
+					List<string> lines = StreamUtils.StreamReadAllLines(() => metaEntry.Open()).ToList();
+					lines[0] = "_zmusicmanager-songtest";
+
+					// Write all the lines to the entry
+					using (var entryStream = metaEntry.Open()) {
+						entryStream.SetLength(0); // We truncate the file before writing
+						using (var writer = new StreamWriter(entryStream)) {
+							foreach (string line in lines) writer.WriteLine(line);
+						}
+					}
+				}
+		
+				// We also copy the cosmetic plando file to the OoTR music folder
+				File.Copy(ootrCosmeticPlandoPath, ootrFolder + "\\ootr-songtest-cosmeticplando.json", true);
+
+				// Next, we create the rom using OoT python CLI
+				var sb = new StringBuilder();
+				using (Process romCreationProcess = new Process()) {
+
+					romCreationProcess.StartInfo.FileName = pythonPath;
+					romCreationProcess.StartInfo.Arguments = ootrCLIPath + " --settings \"" + ootrSettingsPath + "\"";
+
+					// Redirect output
+					/*romCreationProcess.StartInfo.RedirectStandardOutput = true;
+					romCreationProcess.StartInfo.RedirectStandardError = true;
+					romCreationProcess.OutputDataReceived += (s, args) => sb.AppendLine(args.Data);
+					romCreationProcess.ErrorDataReceived += (s, args) => sb.AppendLine(args.Data);*/
+					romCreationProcess.StartInfo.UseShellExecute = false;
+
+					romCreationProcess.Start();
+					//romCreationProcess.BeginOutputReadLine();
+					//romCreationProcess.BeginErrorReadLine();
+					romCreationProcess.WaitForExit();
+					// TODO: Check if the generation was succesful
+				}
+
+				// Now we open the rom we just created
+				string output = sb.ToString();
+				Process.Start(outputRom);
+
+				// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
+				File.Delete(songtestPath);
 
 			} else {
 				var result = SetupOoTCustomMusicStarter();
