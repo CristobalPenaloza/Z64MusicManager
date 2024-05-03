@@ -28,6 +28,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -64,7 +65,7 @@
 			this.label4.Location = new System.Drawing.Point(65, 183);
 			this.label4.MaximumSize = new System.Drawing.Size(300, 100);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(273, 34);
+			this.label4.Size = new System.Drawing.Size(269, 34);
 			this.label4.TabIndex = 3;
 			this.label4.Text = "Made with ❤️ for the Ocarina of Time and Majora\'s Mask Randomizer community.";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -75,15 +76,26 @@
 			this.label5.Location = new System.Drawing.Point(14, 116);
 			this.label5.MaximumSize = new System.Drawing.Size(365, 0);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(365, 17);
+			this.label5.Size = new System.Drawing.Size(357, 17);
 			this.label5.TabIndex = 4;
-			this.label5.Text = "Special thanks to Revven and Joshua8600 for their help!";
+			this.label5.Text = "Thanks to Revven, Isghj and Joshua8600 for their help!";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(14, 133);
+			this.label6.MaximumSize = new System.Drawing.Size(365, 0);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(339, 17);
+			this.label6.TabIndex = 5;
+			this.label6.Text = "Also, shoutouts to Matty07 for the amazing file icons!";
 			// 
 			// AboutForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(394, 235);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.label3);
@@ -106,5 +118,6 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
 	}
 }
