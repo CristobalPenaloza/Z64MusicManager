@@ -195,6 +195,7 @@ namespace Z64MusicManager{
 					var metaEntry = archive.Entries.Where(entry => entry.Name.EndsWith(".meta")).FirstOrDefault();
 					List<string> lines = StreamUtils.StreamReadAllLines(() => metaEntry.Open()).ToList();
 					lines[0] = "_zmusicmanager-songtest";
+					lines[2] = "Bgm";
 
 					// Write all the lines to the entry
 					using (var entryStream = metaEntry.Open()) {
