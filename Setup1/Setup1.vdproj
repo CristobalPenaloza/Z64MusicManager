@@ -223,6 +223,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_47114CB17F6637B61BD22408A7AB69DA"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:514"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -300,6 +305,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression.ZipFile, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_70401FCDCEC057A9DD84303DA0A94FB1"
+                    {
+                    "Name" = "8:System.IO.Compression.ZipFile.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.ZipFile.dll"
             "TargetName" = "8:"
@@ -366,6 +376,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_A197602F44D4B7CF54E5783AA05A6CBC"
+                    {
+                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
             "TargetName" = "8:"
@@ -432,6 +447,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_F2EC8E2D2A0C5970EA1BF1C5EF7C5ADB"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.dll"
             "TargetName" = "8:"
@@ -553,15 +573,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Z64 Music Manager"
-        "ProductCode" = "8:{2CEE30B1-F901-45F6-B905-5E0A9F48A4D7}"
-        "PackageCode" = "8:{6D75EB5F-3DDA-4A44-B777-FF2A4BBE929E}"
+        "ProductCode" = "8:{7A8411FD-422B-4960-B52F-0B29A1DF65AE}"
+        "PackageCode" = "8:{79D909E1-D2EF-4E8F-BE1F-03A306BA199F}"
         "UpgradeCode" = "8:{9C864BDB-2E40-4138-A5A5-226C978B6FFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.2"
+        "ProductVersion" = "8:0.3"
         "Manufacturer" = "8:Z64 Music Manager"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1103,7 +1123,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BDB5C20DC74A4F6295DD96468603D889"
             {
-            "SourcePath" = "8:..\\Z64MusicManager\\obj\\Release\\Z64MusicManager.exe"
+            "SourcePath" = "8:..\\Z64MusicManager\\obj\\Debug\\Z64MusicManager.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"

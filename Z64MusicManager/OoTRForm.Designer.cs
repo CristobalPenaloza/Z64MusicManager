@@ -40,6 +40,7 @@
 			this.txtMainVolume = new System.Windows.Forms.TextBox();
 			this.btnOpenMusicGroupSelector = new System.Windows.Forms.Button();
 			this.btnPreview = new System.Windows.Forms.Button();
+			this.lbFormat = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -157,19 +158,30 @@
 			// 
 			// btnPreview
 			// 
-			this.btnPreview.Location = new System.Drawing.Point(305, 235);
+			this.btnPreview.Location = new System.Drawing.Point(331, 235);
 			this.btnPreview.Name = "btnPreview";
-			this.btnPreview.Size = new System.Drawing.Size(124, 31);
+			this.btnPreview.Size = new System.Drawing.Size(98, 31);
 			this.btnPreview.TabIndex = 14;
 			this.btnPreview.Text = "Preview";
 			this.btnPreview.UseVisualStyleBackColor = true;
 			this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+			// 
+			// lbFormat
+			// 
+			this.lbFormat.AutoSize = true;
+			this.lbFormat.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lbFormat.Location = new System.Drawing.Point(13, 242);
+			this.lbFormat.Name = "lbFormat";
+			this.lbFormat.Size = new System.Drawing.Size(235, 17);
+			this.lbFormat.TabIndex = 15;
+			this.lbFormat.Text = "OOTRS | Custom bank and samples";
 			// 
 			// OoTRForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(441, 286);
+			this.Controls.Add(this.lbFormat);
 			this.Controls.Add(this.btnPreview);
 			this.Controls.Add(this.btnOpenMusicGroupSelector);
 			this.Controls.Add(this.txtMainVolume);
@@ -199,6 +211,7 @@
 			this.Controls.SetChildIndex(this.txtMainVolume, 0);
 			this.Controls.SetChildIndex(this.btnOpenMusicGroupSelector, 0);
 			this.Controls.SetChildIndex(this.btnPreview, 0);
+			this.Controls.SetChildIndex(this.lbFormat, 0);
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -219,6 +232,7 @@
 		private System.Windows.Forms.TextBox txtMainVolume;
 		private System.Windows.Forms.Button btnOpenMusicGroupSelector;
 		private System.Windows.Forms.Button btnPreview;
+		private System.Windows.Forms.Label lbFormat;
 	}
 }
 

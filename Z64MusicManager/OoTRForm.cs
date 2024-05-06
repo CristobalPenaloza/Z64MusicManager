@@ -38,13 +38,17 @@ namespace Z64MusicManager{
 			cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == "0x03").FirstOrDefault();
 			cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact("Bgm");
 			txtMusicGroups.Text = "";
+			lbFormat.Text = "OOTRS";
 		}
 
 		protected override void FillFormWithCurrentFile() {
 			if (!string.IsNullOrEmpty(FileName)) {
+				CleanForm();
 				try {
 					// We open the ootrs file as zip
 					using (ZipArchive archive = ZipFile.OpenRead(FileName)) {
+						bool customBank = false;
+						bool customSamples = false;
 
 						foreach (ZipArchiveEntry entry in archive.Entries) {
 							string extension = Path.GetExtension(entry.Name).ToLower();
@@ -62,10 +66,12 @@ namespace Z64MusicManager{
 										if (lineIndex == 0) txtName.Text = line;
 
 										// Bank
-										else if (lineIndex == 1) cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == line).FirstOrDefault();
+										else if (lineIndex == 1) {
+											if (line.Length == 3) line = line.Insert(2, "0"); // Add a 0 if the bank is in the old short format (e.g. 0x3 instead of 0x03)
+											cbxBank.SelectedItem = Z64Bank.OoTBanks.Where(b => b.Id == line).FirstOrDefault();
 
-										// Sequence type
-										else if (lineIndex == 2) cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact(line);
+											// Sequence type
+										} else if (lineIndex == 2) cbxSequenceType.SelectedIndex = cbxSequenceType.FindStringExact(line);
 
 										// Music groups
 										else if (lineIndex == 3) txtMusicGroups.Text = line;
@@ -83,10 +89,15 @@ namespace Z64MusicManager{
 								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
 							}
+
+							// Process extra files
+							if (extension == ".zbank") customBank = true;
+							if (extension == ".zsound") customSamples = true;
 						}
 						
 						// Set the title of the program as the current opened file
 						Text = Path.GetFileName(FileName) + " - Z64 Music Manager";
+						lbFormat.Text = "OOTRS | " + (customBank ? ("Custom bank" + (customSamples ? " and samples" : "")) : "Vanilla bank");
 						UnsavedChanges = false;
 					}
 
@@ -138,7 +149,7 @@ namespace Z64MusicManager{
 
 							// Make sure we have enough space to fit all the data
 							if (lines.Count < 4) {
-								for (int i = 0; i < 4 - lines.Count; i++) lines.Add("");
+								for (int i = 0; i <= 4 - lines.Count; i++) lines.Add("");
 							}
 
 							// Ovewrite all lines of the meta file
@@ -194,6 +205,10 @@ namespace Z64MusicManager{
 				using (ZipArchive archive = ZipFile.Open(songtestPath, ZipArchiveMode.Update)) {
 					var metaEntry = archive.Entries.Where(entry => entry.Name.EndsWith(".meta")).FirstOrDefault();
 					List<string> lines = StreamUtils.StreamReadAllLines(() => metaEntry.Open()).ToList();
+					// Make sure we have enough space to fit all the data
+					if (lines.Count < 4) {
+						for (int i = 0; i <= 4 - lines.Count; i++) lines.Add("");
+					}
 					lines[0] = "_zmusicmanager-songtest";
 					lines[2] = "Bgm";
 

@@ -31,6 +31,7 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.clbCategories = new System.Windows.Forms.CheckedListBox();
 			this.btnPreview = new System.Windows.Forms.Button();
+			this.lbFormat = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -114,19 +115,30 @@
 			// 
 			// btnPreview
 			// 
-			this.btnPreview.Location = new System.Drawing.Point(303, 361);
+			this.btnPreview.Location = new System.Drawing.Point(324, 361);
 			this.btnPreview.Name = "btnPreview";
-			this.btnPreview.Size = new System.Drawing.Size(124, 31);
+			this.btnPreview.Size = new System.Drawing.Size(103, 31);
 			this.btnPreview.TabIndex = 18;
 			this.btnPreview.Text = "Preview";
 			this.btnPreview.UseVisualStyleBackColor = true;
 			this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
 			// 
+			// lbFormat
+			// 
+			this.lbFormat.AutoSize = true;
+			this.lbFormat.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lbFormat.Location = new System.Drawing.Point(14, 367);
+			this.lbFormat.Name = "lbFormat";
+			this.lbFormat.Size = new System.Drawing.Size(302, 17);
+			this.lbFormat.TabIndex = 19;
+			this.lbFormat.Text = "MMRS | Custom bank and samples | FormMask";
+			// 
 			// MMRForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(441, 429);
+			this.ClientSize = new System.Drawing.Size(441, 410);
+			this.Controls.Add(this.lbFormat);
 			this.Controls.Add(this.btnPreview);
 			this.Controls.Add(this.clbCategories);
 			this.Controls.Add(this.txtMainVolume);
@@ -146,6 +158,7 @@
 			this.Controls.SetChildIndex(this.txtMainVolume, 0);
 			this.Controls.SetChildIndex(this.clbCategories, 0);
 			this.Controls.SetChildIndex(this.btnPreview, 0);
+			this.Controls.SetChildIndex(this.lbFormat, 0);
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -162,5 +175,6 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckedListBox clbCategories;
 		private System.Windows.Forms.Button btnPreview;
+		private System.Windows.Forms.Label lbFormat;
 	}
 }

@@ -33,13 +33,18 @@ namespace Z64MusicManager {
 		protected override void CleanForm() {
 			cbxBank.SelectedItem = Z64Bank.MMBanks.Where(b => b.Id == "3").FirstOrDefault();
 			clbCategories.ClearSelected();
+			lbFormat.Text = "MMRS";
 		}
 
 		protected override void FillFormWithCurrentFile() {
 			if (!string.IsNullOrEmpty(FileName)) {
+				CleanForm();
 				try {
 					// We open the mmrs file as zip
 					using (ZipArchive archive = ZipFile.OpenRead(FileName)) {
+						bool customBank = false;
+						bool customSamples = false;
+						bool formMask = false;
 
 						foreach (ZipArchiveEntry entry in archive.Entries) {
 							string extension = Path.GetExtension(entry.Name).ToLower();
@@ -71,10 +76,16 @@ namespace Z64MusicManager {
 								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
 							}
+
+							// Process extra files
+							if (extension == ".zbank") customBank = true;
+							if (extension == ".zsound") customSamples = true;
+							if (extension == ".formmask") formMask = true;
 						}
 
 						// Set the title of the program as the current opened file
 						Text = Path.GetFileName(FileName) + " - Z64 Music Manager";
+						lbFormat.Text = "MMRS | " + (customBank ? ("Custom bank" + (customSamples ? " and samples" : "")) : "Vanilla bank") + (formMask ? " | FormMask" : "");
 						UnsavedChanges = false;
 					}
 
