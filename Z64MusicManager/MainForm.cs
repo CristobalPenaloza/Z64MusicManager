@@ -7,6 +7,8 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Mime;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -237,12 +239,10 @@ namespace Z64MusicManager {
 
 		protected DialogResult SetupMMCustomMusicStarter() {
 			string caption = "MM custom music starter not setup!";
-			string text = "To preview MMRS files on emulator:\n\n"
-				+ "1. Download and install an n64 emulator, and set it up so it opens .z64 files by default.\n\n"
-				+ "2. Download and setup MM Randomizer.\n\n"
-				+ "3. Make sure you have in your MM Randomizer default settings.json file an input ROM selected and custom music enabled.\n\n"
-				+ "4. Press OK on this message box, and select the MMR.CLI.exe file that is inside your instalation of MM Randomizer.\n\n"
-				+ "5. Enjoy! ";
+			string text = "To preview MMRS files, you need to:\n\n" +
+				" 1. Download and install MM Randomizer.\n\n" +
+				" 2. Run it, set an input ROM and enable custom music in Cosmetics > Music/Sound > Music > Random.\n\n" +
+				" 3. Finally, press OK in this message box, and select the MMR.CLI.exe file that is inside your instalation of MM Randomizer.";
 
 			DialogResult mbResult = MessageBox.Show(
 				text, caption, MessageBoxButtons.OKCancel,
@@ -259,12 +259,48 @@ namespace Z64MusicManager {
 				if (ofdResult == DialogResult.OK) {
 					Properties.Settings.Default.MMRCLIPath = ofd.FileName;
 					Properties.Settings.Default.Save();
+
+					// Offer configuring BizHawk
+					SetupBizhawk();
 					return DialogResult.OK;
 				}
 			}
 
 			return DialogResult.None;
 		}
+
+		protected DialogResult SetupBizhawk() {
+			string caption = "BizHawk setup";
+			string text = "Optionally, you can setup the emulator BizHawk to add some features to previews, like skipping game intro, and exporting audio files. You need to:\n\n" +
+				" 1. Download and install BizHawk.\n\n" +
+				" 2. Press OK in this message box, and select the EmuHawk.exe file that is inside your instalation of BizHawk.\n\n" +
+				"If you don't need it, just press Cancel.";
+
+			var result = MessageBox.Show(text, caption, MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+			if(result == DialogResult.OK) {
+
+				OpenFileDialog ofd = new OpenFileDialog();
+				ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
+				ofd.Filter = "EmuHawk.exe|EmuHawk.exe";
+				ofd.RestoreDirectory = true;
+
+				// We show the open file dialog
+				DialogResult ofdResult = ofd.ShowDialog();
+				if (ofdResult == DialogResult.OK) {
+					Properties.Settings.Default.BizhawkPath = ofd.FileName;
+					Properties.Settings.Default.Save();
+					return DialogResult.OK;
+				}
+			}
+
+			return DialogResult.None;
+		}
+
+		protected DialogResult ShowError(string caption, string text) {
+			return MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+		}
+
+
 
 
 		// CONVERSION

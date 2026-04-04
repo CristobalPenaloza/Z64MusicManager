@@ -173,33 +173,50 @@ namespace Z64MusicManager {
 			// Check if the mm rando exe file is setup
 			string mmrCLIPath = Properties.Settings.Default.MMRCLIPath;
 			if (File.Exists(mmrCLIPath)) {
+				string songtestPath = "";
+				try {
+					// Get the necesary paths...
+					string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
+					string outputRom = mmrFolder + "/output/_zmusicmanager-songtest.z64";
+					string defaultMMRSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mmr-default-settings.json");
+					songtestPath = mmrFolder + "/music/_zmusicmanager-songtest.mmrs";
 
-				// Get the necesary paths...
-				string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
-				string songtestPath = mmrFolder + "\\music\\_zmusicmanager-songtest.mmrs";
-				string outputRom = mmrFolder + "\\output\\_zmusicmanager-songtest.z64";
-				string defaultMMRSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\mmr-default-settings.json";
-				// PUEDE QUE NO ESTÉ ENCONTRANDO EL ARCHIVO DE LOS SETTINGS....
-				// PROBAR SIN EL DEFAULT SETTINGS.
+					// First, we copy our current opened file to the MMR music folder
+					File.Copy(FileName, songtestPath, true);
 
-				// First, we copy our current opened file to the MMR music folder
-				File.Copy(FileName, songtestPath, true);
+					// Next, we create the rom using MMR CLI
+					using (Process romCreationProcess = new Process()) {
+						romCreationProcess.StartInfo.FileName = mmrCLIPath;
+						romCreationProcess.StartInfo.Arguments = "-output \"" + outputRom + "\" -settings \"" + defaultMMRSettingsPath + "\"";
+						romCreationProcess.Start();
+						romCreationProcess.WaitForExit();
+						// TODO: Check if the generation was succesful
+					}
 
-				// Next, we create the rom using MMR CLI
-				using (Process romCreationProcess = new Process()) {
-					romCreationProcess.StartInfo.FileName = mmrCLIPath;
-					romCreationProcess.StartInfo.Arguments = "-output \"" + outputRom
-						+ "\" -settings \"" + defaultMMRSettingsPath + "\"";
-					romCreationProcess.Start();
-					romCreationProcess.WaitForExit();
-					// TODO: Check if the generation was succesful
+					// Now we open the rom we just created
+					string bizhawkPath = Properties.Settings.Default.BizhawkPath;
+					if (string.IsNullOrEmpty(bizhawkPath)) {
+						Process.Start(outputRom);
+
+					} else {
+						// If we have BizHawk configured, then skip the title screen with the LUA script
+						using (Process previewProcess = new Process()) {
+							string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+							previewProcess.StartInfo.FileName = bizhawkPath;
+							previewProcess.StartInfo.Arguments = $"--lua \"{mmSkipIntroLuaPath}\"  \"{outputRom}\"";
+							previewProcess.Start();
+							previewProcess.WaitForExit();
+						}
+					}
+					
+
+				} catch (Exception ex) {
+					ShowError("An error has ocurred!", ex.ToString());
+
+				} finally {
+					// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
+					if(!string.IsNullOrEmpty(songtestPath)) File.Delete(songtestPath);
 				}
-
-				// Now we open the rom we just created
-				Process.Start(outputRom);
-
-				// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
-				File.Delete(songtestPath);
 
 			} else {
 				var result = SetupMMCustomMusicStarter();
