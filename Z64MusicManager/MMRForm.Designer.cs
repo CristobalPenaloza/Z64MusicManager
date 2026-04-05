@@ -32,6 +32,7 @@
 			this.clbCategories = new System.Windows.Forms.CheckedListBox();
 			this.btnPreview = new System.Windows.Forms.Button();
 			this.lbFormat = new System.Windows.Forms.Label();
+			this.lbDuration = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -51,7 +52,7 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(13, 44);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(44, 17);
+			this.label2.Size = new System.Drawing.Size(41, 16);
 			this.label2.TabIndex = 8;
 			this.label2.Text = "Bank:";
 			// 
@@ -60,7 +61,7 @@
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(13, 78);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(80, 17);
+			this.label1.Size = new System.Drawing.Size(76, 16);
 			this.label1.TabIndex = 10;
 			this.label1.Text = "Categories:";
 			// 
@@ -88,7 +89,7 @@
 			this.label4.AutoSize = true;
 			this.label4.Location = new System.Drawing.Point(13, 318);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(91, 17);
+			this.label4.Size = new System.Drawing.Size(86, 16);
 			this.label4.TabIndex = 13;
 			this.label4.Text = "Main volume:";
 			// 
@@ -129,15 +130,26 @@
 			this.lbFormat.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 			this.lbFormat.Location = new System.Drawing.Point(14, 367);
 			this.lbFormat.Name = "lbFormat";
-			this.lbFormat.Size = new System.Drawing.Size(302, 17);
+			this.lbFormat.Size = new System.Drawing.Size(289, 16);
 			this.lbFormat.TabIndex = 19;
 			this.lbFormat.Text = "MMRS | Custom bank and samples | FormMask";
+			// 
+			// lbDuration
+			// 
+			this.lbDuration.AutoSize = true;
+			this.lbDuration.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.lbDuration.Location = new System.Drawing.Point(14, 394);
+			this.lbDuration.Name = "lbDuration";
+			this.lbDuration.Size = new System.Drawing.Size(118, 16);
+			this.lbDuration.TabIndex = 20;
+			this.lbDuration.Text = "Duration: 00:00.000";
 			// 
 			// MMRForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(441, 410);
+			this.ClientSize = new System.Drawing.Size(441, 440);
+			this.Controls.Add(this.lbDuration);
 			this.Controls.Add(this.lbFormat);
 			this.Controls.Add(this.btnPreview);
 			this.Controls.Add(this.clbCategories);
@@ -159,6 +171,7 @@
 			this.Controls.SetChildIndex(this.clbCategories, 0);
 			this.Controls.SetChildIndex(this.btnPreview, 0);
 			this.Controls.SetChildIndex(this.lbFormat, 0);
+			this.Controls.SetChildIndex(this.lbDuration, 0);
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -176,5 +189,6 @@
 		private System.Windows.Forms.CheckedListBox clbCategories;
 		private System.Windows.Forms.Button btnPreview;
 		private System.Windows.Forms.Label lbFormat;
+		private System.Windows.Forms.Label lbDuration;
 	}
 }

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,20 @@ namespace Z64MusicManager.Utils {
 			using (var a = entry.Open())
 			using (var b = copy.Open()) a.CopyTo(b);
 			return copy;
+		}
+
+
+		// BINARYREADER EXTENSIONS
+		public static ushort ReadUInt16BE(this BinaryReader reader) {
+			return BitConverter.ToUInt16(reader.ReadBytesRequired(sizeof(ushort)).Reverse().ToArray(), 0);
+		}
+		public static byte[] ReadBytesRequired(this BinaryReader reader, int byteCount) {
+			var result = reader.ReadBytes(byteCount);
+
+			if (result.Length != byteCount)
+				throw new EndOfStreamException(string.Format("{0} bytes required from stream, but only {1} returned.", byteCount, result.Length));
+
+			return result;
 		}
 
 	}

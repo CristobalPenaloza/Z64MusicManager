@@ -72,6 +72,10 @@ namespace Z64MusicManager {
 								string bank = entry.Name.Replace(".zseq", "").Trim();
 								cbxBank.SelectedItem = Z64Bank.MMBanks.Where(b => b.Id == bank).FirstOrDefault();
 
+								// Calculate the duration of the file
+								TimeSpan duration = SeqUtils.CalculateDuration(() => entry.Open());
+								lbDuration.Text = "Duration: " + duration.ToString(@"mm\:ss");
+
 								// Search the file until we find the master volume command (0xDB)
 								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
@@ -272,6 +276,5 @@ namespace Z64MusicManager {
 
 			// We are finished!
 		}
-
 	}
 }
