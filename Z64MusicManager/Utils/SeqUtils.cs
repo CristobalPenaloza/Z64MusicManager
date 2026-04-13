@@ -65,9 +65,25 @@ namespace Z64MusicManager.Utils {
 
 						// If we find a delay (or timestamp, or ticks), we add it to the list with our current tempo
 						if (b == DELAY) {
-							ushort delay = reader.ReadUInt16BE();
-							ushort offsetDelay = (ushort)(delay - 32768); // We substract 0x8000... for some reason all delays have that offset in seq64
-							tempos.Add(new TempoChange(currentTempo, offsetDelay));
+							// Delay is a "variable" type of data, meaning it can be multiple bytes long.
+							// How seq64 handles it:
+							// https://github.com/sauraen/seq64/blob/47500ab1bbf93eeaad35806ff6a13163cc11538a/Source/SeqFile.cpp#L4783
+							// We need to replicate that exact same behaviour
+
+							// We read the first byte
+							ushort delay = reader.ReadByte();
+
+							// If the most significant bit is 1, it means this value is spread in two bytes!
+							if ((delay & 0x80) == 0x80) {
+								delay &= 0x7F; // We remove the leftmost bit, since thats just a flag, not part of the actual value
+								delay <<= 8; // We shift the value to the left to make space for the next byte
+
+								// Finally, we read the next byte and add it
+								ushort nextByte = reader.ReadByte();
+								delay |= nextByte;
+							}
+
+							tempos.Add(new TempoChange(currentTempo, delay));
 						}
 
 						// Also search for when a section starts... That means the end of the header!
