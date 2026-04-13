@@ -55,7 +55,7 @@ namespace Z64MusicManager.Utils {
 			List<TempoChange> tempos = new List<TempoChange>();
 			using (var reader = new BinaryReader(streamProvider())) {
 				try {
-					byte currentTempo = 60;
+					byte currentTempo = 120; // We use default MIDI tempo. Pretty sure MM uses this!
 					while (true) {
 						byte b = reader.ReadByte();
 						// If we find a tempo command, then we changed tempo!
