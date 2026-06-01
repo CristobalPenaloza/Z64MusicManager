@@ -366,6 +366,18 @@ namespace Z64MusicManager {
 			aboutForm.Show();
 		}
 
-		
+		private void btnSettings_Click(object sender, EventArgs e) {
+			using (SettingsForm settingsDialog = new SettingsForm()) {
+				// ShowDialog freezes the parent form and waits for a result
+				if (settingsDialog.ShowDialog(this) == DialogResult.OK) {
+					// Apply the updated settings to your main UI instantly
+					// ApplyApplicationSettings();
+				}
+			}
+		}
+
+		private void btnRecordAudioPreview_Click(object sender, EventArgs e) {
+
+		}
 	}
 }
