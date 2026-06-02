@@ -33,6 +33,7 @@
 			this.btnPreview = new System.Windows.Forms.Button();
 			this.lbFormat = new System.Windows.Forms.Label();
 			this.lbDuration = new System.Windows.Forms.Label();
+			this.btnRecord = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -144,11 +145,22 @@
 			this.lbDuration.TabIndex = 20;
 			this.lbDuration.Text = "Duration: 00:00.000";
 			// 
+			// btnRecord
+			// 
+			this.btnRecord.Location = new System.Drawing.Point(324, 398);
+			this.btnRecord.Name = "btnRecord";
+			this.btnRecord.Size = new System.Drawing.Size(103, 31);
+			this.btnRecord.TabIndex = 21;
+			this.btnRecord.Text = "Record";
+			this.btnRecord.UseVisualStyleBackColor = true;
+			this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+			// 
 			// MMRForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(441, 440);
+			this.Controls.Add(this.btnRecord);
 			this.Controls.Add(this.lbDuration);
 			this.Controls.Add(this.lbFormat);
 			this.Controls.Add(this.btnPreview);
@@ -172,6 +184,7 @@
 			this.Controls.SetChildIndex(this.btnPreview, 0);
 			this.Controls.SetChildIndex(this.lbFormat, 0);
 			this.Controls.SetChildIndex(this.lbDuration, 0);
+			this.Controls.SetChildIndex(this.btnRecord, 0);
 			((System.ComponentModel.ISupportInitialize)(this.tbMainVolume)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -190,5 +203,6 @@
 		private System.Windows.Forms.Button btnPreview;
 		private System.Windows.Forms.Label lbFormat;
 		private System.Windows.Forms.Label lbDuration;
+		private System.Windows.Forms.Button btnRecord;
 	}
 }

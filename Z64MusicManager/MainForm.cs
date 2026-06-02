@@ -16,6 +16,7 @@ using System.Windows.Forms;
 namespace Z64MusicManager {
 	public partial class MainForm : Form {
 		public string FileName;
+		public TimeSpan Duration;
 		public bool UnsavedChanges = false;
 
 		public MainForm() {
@@ -296,6 +297,9 @@ namespace Z64MusicManager {
 			return DialogResult.None;
 		}
 
+		protected DialogResult ShowError(string caption) {
+			return ShowError(caption, "");
+		}
 		protected DialogResult ShowError(string caption, string text) {
 			return MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 		}
