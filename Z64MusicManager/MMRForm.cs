@@ -76,10 +76,13 @@ namespace Z64MusicManager {
 							}
 
 							// Process the .zseq file
-							if (extension == ".zseq") {
+							// Also consider .seq files, those also should be compatible
+							if (extension == ".zseq" || extension == ".seq") {
 								// Get the bank from the file name
-								string bank = entry.Name.Replace(".zseq", "").Trim();
-								cbxBank.SelectedItem = Z64Bank.MMBanks.Where(b => b.Id == bank).FirstOrDefault();
+								string bank = entry.Name.Replace(".zseq", "").Replace(".seq", "").Trim();
+								cbxBank.SelectedItem = Z64Bank.MMBanks.Where(b =>
+									b.Id.Replace("0x", "").ToUpper() == bank.Replace("0x", "").ToUpper()
+								).FirstOrDefault();
 
 								// Calculate the duration of the file
 								Duration = SeqUtils.CalculateDuration(() => entry.Open());
