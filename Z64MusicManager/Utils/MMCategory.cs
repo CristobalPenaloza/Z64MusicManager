@@ -9,6 +9,10 @@ namespace Z64MusicManager.Utils {
 		public string Id;
 		public string Name;
 
+		public override string ToString() {
+			return $"[{Id}] {Name}";
+		}
+
 		public static List<MMCategory> GeneralBgmCategories = new List<MMCategory>() {
 			new MMCategory{ Id = "0", Name = "Field" },
 			new MMCategory{ Id = "1", Name = "Towns" },

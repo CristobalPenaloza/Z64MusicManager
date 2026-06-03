@@ -1,5 +1,6 @@
 ﻿using NAudio.Lame;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,12 @@ namespace Z64MusicManager {
 			cbxBank.DisplayMember = "Name";
 			cbxBank.ValueMember = "Id";
 			cbxBank.DataSource = Z64Bank.MMBanks;
+
+			List<MMCategory> allCategories = MMCategory.GeneralBgmCategories;
+			allCategories.AddRange(MMCategory.GeneralFanfareCategories);
+			allCategories.AddRange(MMCategory.SpecificBgmCategories);
+			allCategories.AddRange(MMCategory.SpecificFanfareCategories);
+			clbCategories.DataSource = allCategories;
 
 			FillFormWithCurrentFile();
 		}
@@ -294,6 +301,16 @@ namespace Z64MusicManager {
 			}
 		}
 
+		protected bool IsFanfare() {
+			foreach (var item in clbCategories.CheckedItems) {
+				string categoryId = item.ToString().Between("[", "]");
+				if (MMCategory.GeneralFanfareCategories.Any(c => c.Id == categoryId) || MMCategory.SpecificFanfareCategories.Any(c => c.Id == categoryId)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
 		private void btnRecord_Click(object sender, EventArgs e) {
 			string bizhawkPath = Properties.Settings.Default.BizhawkPath;
 			if (!string.IsNullOrEmpty(bizhawkPath)) {
@@ -301,9 +318,14 @@ namespace Z64MusicManager {
 				string previewRom = GeneratePreviewRom();
 				string wavFilePath = FileName.Replace(".mmrs", ".wav");
 
+				bool isFanfare = IsFanfare();
+				int introFrames = 226;
+				int fadeOutMilliseconds = isFanfare ? 0 : 5000;
+
 				// Create the recording process and monitor it
 				using (Process previewProcess = new Process()) {
-					int duration = 226 + (int)(Duration.TotalSeconds * 60); // The N64 intro and main menu run at 60 fps
+					// The N64 intro and main menu run at 60 fps
+					int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
 					string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
 					string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
 					previewProcess.StartInfo.FileName = bizhawkPath;
@@ -312,10 +334,35 @@ namespace Z64MusicManager {
 					previewProcess.WaitForExit();
 				}
 
+
 				// OK, now convert the wav to mp3
 				using(var reader = new WaveFileReader(wavFilePath)) {
-					using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), reader.WaveFormat, 128)) {
-						reader.CopyTo(writer);
+
+					// Skip the intro
+					reader.CurrentTime = TimeSpan.FromSeconds(2.2);
+
+					// Add a fadeout to the end of the file
+					var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
+					var pcmProvider = new SampleToWaveProvider16(fader);
+
+					TimeSpan fadeOutStart = reader.TotalTime.Subtract(TimeSpan.FromMilliseconds(fadeOutMilliseconds));
+					bool isFadingOut = false;
+
+					// Write the mp3
+					using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), pcmProvider.WaveFormat, 128)) {
+						// 16-bit PCM uses a byte buffer instead of a float buffer
+						byte[] buffer = new byte[pcmProvider.WaveFormat.SampleRate * pcmProvider.WaveFormat.Channels * 2];
+						int bytesRead;
+
+						// Read and write the audio data
+						while ((bytesRead = pcmProvider.Read(buffer, 0, buffer.Length)) > 0) {
+							// Dynamically trigger the fade-out
+							if (fadeOutMilliseconds > 0 && !isFadingOut && reader.CurrentTime >= fadeOutStart) {
+								fader.BeginFadeOut(fadeOutMilliseconds - 500);
+								isFadingOut = true;
+							}
+							writer.Write(buffer, 0, bytesRead);
+						}
 					}
 				}
 
@@ -323,7 +370,5 @@ namespace Z64MusicManager {
 				File.Delete(wavFilePath);
 			}
 		}
-
-
 	}
 }
