@@ -11,7 +11,10 @@ namespace Z64MusicManager.Utils {
 		public const byte VOLUME = 0xDB;
 		public const byte TEMPO = 0xDD;
 		public const byte DELAY = 0xFD;
-		public const ushort SECTION = 0xC488;
+
+		// We know the end of the header, by checking it's end and if its continued by a section start
+		public const byte END = 0xFF;
+		public const byte SECTION_START = 0xC4;
 
 		public const int PPQN = 48;
 
@@ -56,6 +59,7 @@ namespace Z64MusicManager.Utils {
 			using (var reader = new BinaryReader(streamProvider())) {
 				try {
 					byte currentTempo = 120; // We use default MIDI tempo. Pretty sure MM uses this!
+					bool foundEnd = false;
 					while (true) {
 						byte b = reader.ReadByte();
 						// If we find a tempo command, then we changed tempo!
@@ -86,13 +90,22 @@ namespace Z64MusicManager.Utils {
 							tempos.Add(new TempoChange(currentTempo, delay));
 						}
 
-						// Also search for when a section starts... That means the end of the header!
-						if (tempos.Count > 0) {
+						// Also search for when a section ends and another sections starts... That means the end of the header!
+						// We do it in separate checks because FF can be the value of another command
+						if (b == END) {
+							foundEnd = true;
+
+						} else if (foundEnd) {
+							if (b == SECTION_START) break;
+							else foundEnd = false;
+						}
+
+						/*if (tempos.Count > 0) {
 							if (b == 0xFF) {
 								break;
 								//if (reader.ReadUInt16BE() == SECTION) break;
 							}
-						}
+						}*/
 					}
 				} catch (EndOfStreamException) {
 					return TimeSpan.Zero;

@@ -17,6 +17,8 @@ using Z64MusicManager.Utils;
 
 namespace Z64MusicManager {
 	public partial class MMRForm : MainForm {
+		static readonly object _generatePreviewLock = new object();
+
 		public MMRForm() {
 			InitializeComponent();
 		}
@@ -67,7 +69,7 @@ namespace Z64MusicManager {
 									string line = reader.ReadLine() ?? "";
 									string[] categories = line.Split(',', '-');
 
-									for(int i = 0; i < clbCategories.Items.Count; i++) {
+									for (int i = 0; i < clbCategories.Items.Count; i++) {
 										string itemValue = clbCategories.Items[i].ToString().Between("[", "]");
 										bool isChecked = categories.Any(c => c.Trim() == itemValue);
 										clbCategories.SetItemChecked(i, isChecked);
@@ -109,7 +111,7 @@ namespace Z64MusicManager {
 				} catch (FileNotFoundException) {
 					NewFile();
 				}
-				
+
 				// The FileName is empty... so that means we are creating a new file!
 				// Also, clean the form.
 			} else {
@@ -184,7 +186,7 @@ namespace Z64MusicManager {
 			txtMainVolume.Text = tbMainVolume.Value.ToString("X");
 		}
 
-		
+
 
 
 		protected override void ConvertFile(string path) {
@@ -192,7 +194,7 @@ namespace Z64MusicManager {
 
 			// Open the file in update mode
 			using (ZipArchive archive = ZipFile.Open(path, ZipArchiveMode.Update)) {
-				
+
 				// Read the zseq file to get the bank
 				var zseqEntry = archive.Entries.Where(e => e.Name.EndsWith(".zseq")).FirstOrDefault();
 				string bankId = ConversionTools.MMBank2OoTBank(zseqEntry.Name.Replace(".zseq", ""));
@@ -218,7 +220,7 @@ namespace Z64MusicManager {
 
 				// Rename the zseq file
 				zseqEntry.CopyToNewEntry(fileName + ".seq");
-				
+
 				// Rename the bank files
 				var bankEntries = archive.Entries.Where(e => e.Name.EndsWith(".zbank") || e.Name.EndsWith(".bankmeta")).ToList();
 				foreach (var currentEntry in bankEntries) {
@@ -237,47 +239,56 @@ namespace Z64MusicManager {
 
 
 
-		private string GeneratePreviewRom() {
-			// Check if the mm rando exe file is setup
-			string mmrCLIPath = Properties.Settings.Default.MMRCLIPath;
-			if (File.Exists(mmrCLIPath)) {
-				string songtestPath = "";
+		private string GeneratePreviewRom(bool unique = false) {
+			// Lock this process to allow safe concurrency
+			lock (_generatePreviewLock) {
 
-				try {
-					// Get the necesary paths...
-					string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
-					string outputRom = mmrFolder + "/output/_zmusicmanager-songtest.z64";
-					string defaultMMRSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mmr-default-settings.json");
-					songtestPath = mmrFolder + "/music/_zmusicmanager-songtest.mmrs";
+				// Check if the mm rando exe file is setup
+				string mmrCLIPath = Properties.Settings.Default.MMRCLIPath;
+				if (File.Exists(mmrCLIPath)) {
+					string songtestPath = "";
 
-					// First, we copy our current opened file to the MMR music folder
-					File.Copy(FileName, songtestPath, true);
+					try {
+						// TO ALLOW THIS PROCESS IN ASYNC, the mayor issue is that the music folder is shared
+						// Is there any way to force a specific songtest song for a given generation? It seems not...
+						// So, the generation process should work like a queue... The recording process itself can be async
+						// TODO: LOCK THIS PROCESS, make everything else wait until they are finished!
 
-					// Next, we create the rom using MMR CLI
-					using (Process romCreationProcess = new Process()) {
-						romCreationProcess.StartInfo.FileName = mmrCLIPath;
-						romCreationProcess.StartInfo.Arguments = "-output \"" + outputRom + "\" -settings \"" + defaultMMRSettingsPath + "\"";
-						romCreationProcess.Start();
-						romCreationProcess.WaitForExit();
-						// TODO: Check if the generation was succesful
+						// Get the necesary paths...
+						string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
+						string outputRom = $"{mmrFolder}/output/{(unique ? Guid.NewGuid().ToString() : "")}_zmusicmanager-songtest.z64";
+						string defaultMMRSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mmr-default-settings.json");
+						songtestPath = mmrFolder + "/music/_zmusicmanager-songtest.mmrs";
 
-						return outputRom;
+						// First, we copy our current opened file to the MMR music folder
+						File.Copy(FileName, songtestPath, true);
+
+						// Next, we create the rom using MMR CLI
+						using (Process romCreationProcess = new Process()) {
+							romCreationProcess.StartInfo.FileName = mmrCLIPath;
+							romCreationProcess.StartInfo.Arguments = "-output \"" + outputRom + "\" -settings \"" + defaultMMRSettingsPath + "\"";
+							romCreationProcess.Start();
+							romCreationProcess.WaitForExit();
+							// TODO: Check if the generation was succesful
+
+							return outputRom;
+						}
+
+					} catch (Exception ex) {
+						ShowError("An error ocurred while generating preview ROM", ex.ToString());
+
+					} finally {
+						// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
+						if (!string.IsNullOrEmpty(songtestPath)) File.Delete(songtestPath);
 					}
 
-				} catch(Exception ex) {
-					ShowError("An error ocurred while generating preview ROM", ex.ToString());
-
-				} finally {
-					// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
-					if (!string.IsNullOrEmpty(songtestPath)) File.Delete(songtestPath);
+				} else {
+					var result = SetupMMCustomMusicStarter();
+					if (result == DialogResult.OK) return GeneratePreviewRom();
 				}
 
-			} else {
-				var result = SetupMMCustomMusicStarter();
-				if (result == DialogResult.OK) return GeneratePreviewRom();
+				return null;
 			}
-
-			return null;
 		}
 
 		private void btnPreview_Click(object sender, EventArgs e) {
@@ -314,63 +325,74 @@ namespace Z64MusicManager {
 			return false;
 		}
 
+
 		private void btnRecord_Click(object sender, EventArgs e) {
+			Record();
+		}
+		public void Record() {
 			string bizhawkPath = Properties.Settings.Default.BizhawkPath;
 			if (!string.IsNullOrEmpty(bizhawkPath)) {
 
-				string previewRom = GeneratePreviewRom();
+				string previewRom = GeneratePreviewRom(unique: true);
 				string wavFilePath = FileName.Replace(".mmrs", ".wav");
 
-				bool isFanfare = IsFanfare();
-				int introFrames = 226;
-				int fadeOutMilliseconds = isFanfare ? 0 : 5000;
+				try {
 
-				// Create the recording process and monitor it
-				using (Process previewProcess = new Process()) {
-					// The N64 intro and main menu run at 60 fps
-					int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
-					string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
-					string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
-					previewProcess.StartInfo.FileName = bizhawkPath;
-					previewProcess.StartInfo.Arguments = $"--dump-name \"{wavFilePath}\" --dump-type \"wave\" --dump-close \"true\" --dump-length {duration} --config \"{bizhawkConfigPath}\" --lua \"{mmSkipIntroLuaPath}\" \"{previewRom}\"";
-					previewProcess.Start();
-					previewProcess.WaitForExit();
-				}
+					bool isFanfare = IsFanfare();
+					int introFrames = 226;
+					int fadeOutMilliseconds = isFanfare ? 0 : 5000;
 
+					// Create the recording process and monitor it
+					using (Process previewProcess = new Process()) {
+						// The N64 intro and main menu run at 60 fps
+						int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
+						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+						string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
+						previewProcess.StartInfo.FileName = bizhawkPath;
+						previewProcess.StartInfo.Arguments = $"--dump-name \"{wavFilePath}\" --dump-type \"wave\" --dump-close \"true\" --dump-length {duration} --config \"{bizhawkConfigPath}\" --lua \"{mmSkipIntroLuaPath}\" \"{previewRom}\"";
+						previewProcess.Start();
+						previewProcess.WaitForExit();
+					}
+					
 
-				// OK, now convert the wav to mp3
-				using(var reader = new WaveFileReader(wavFilePath)) {
+					// OK, now convert the wav to mp3
+					using (var reader = new WaveFileReader(wavFilePath)) {
 
-					// Skip the intro
-					reader.CurrentTime = TimeSpan.FromSeconds(2.2);
+						// Skip the intro
+						reader.CurrentTime = TimeSpan.FromSeconds(2.2);
 
-					// Add a fadeout to the end of the file
-					var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
-					var pcmProvider = new SampleToWaveProvider16(fader);
+						// Add a fadeout to the end of the file
+						var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
+						var pcmProvider = new SampleToWaveProvider16(fader);
 
-					TimeSpan fadeOutStart = reader.TotalTime.Subtract(TimeSpan.FromMilliseconds(fadeOutMilliseconds));
-					bool isFadingOut = false;
+						TimeSpan fadeOutStart = reader.TotalTime.Subtract(TimeSpan.FromMilliseconds(fadeOutMilliseconds));
+						bool isFadingOut = false;
 
-					// Write the mp3
-					using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), pcmProvider.WaveFormat, 128)) {
-						// 16-bit PCM uses a byte buffer instead of a float buffer
-						byte[] buffer = new byte[pcmProvider.WaveFormat.SampleRate * pcmProvider.WaveFormat.Channels * 2];
-						int bytesRead;
+						// Write the mp3
+						using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), pcmProvider.WaveFormat, 128)) {
+							// 16-bit PCM uses a byte buffer instead of a float buffer
+							byte[] buffer = new byte[pcmProvider.WaveFormat.SampleRate * pcmProvider.WaveFormat.Channels * 2];
+							int bytesRead;
 
-						// Read and write the audio data
-						while ((bytesRead = pcmProvider.Read(buffer, 0, buffer.Length)) > 0) {
-							// Dynamically trigger the fade-out
-							if (fadeOutMilliseconds > 0 && !isFadingOut && reader.CurrentTime >= fadeOutStart) {
-								fader.BeginFadeOut(fadeOutMilliseconds - 500);
-								isFadingOut = true;
+							// Read and write the audio data
+							while ((bytesRead = pcmProvider.Read(buffer, 0, buffer.Length)) > 0) {
+								// Dynamically trigger the fade-out
+								if (fadeOutMilliseconds > 0 && !isFadingOut && reader.CurrentTime >= fadeOutStart) {
+									fader.BeginFadeOut(fadeOutMilliseconds - 500);
+									isFadingOut = true;
+								}
+								writer.Write(buffer, 0, bytesRead);
 							}
-							writer.Write(buffer, 0, bytesRead);
 						}
 					}
-				}
 
-				// And delete the original wav file
-				File.Delete(wavFilePath);
+				} finally {
+					// Cleanup the generated files
+					File.Delete(previewRom);
+					File.Delete(previewRom.Replace(".z64", ".png"));
+					File.Delete(previewRom.Replace(".z64", "_SongLog.txt"));
+					File.Delete(wavFilePath);
+				}
 			}
 		}
 	}

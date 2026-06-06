@@ -38,9 +38,9 @@
 			this.btnExit = new System.Windows.Forms.ToolStripMenuItem();
 			this.convertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnConvert = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnBulkAudioRecord = new System.Windows.Forms.ToolStripMenuItem();
 			this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnRecordAudioPreview = new System.Windows.Forms.ToolStripMenuItem();
 			this.msMainMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -79,7 +79,7 @@
             this.btnNewOOTRSFile,
             this.btnNewMMRSFile});
 			this.btnNew.Name = "btnNew";
-			this.btnNew.Size = new System.Drawing.Size(224, 26);
+			this.btnNew.Size = new System.Drawing.Size(154, 26);
 			this.btnNew.Text = "New";
 			// 
 			// btnNewOOTRSFile
@@ -99,50 +99,50 @@
 			// btnOpen
 			// 
 			this.btnOpen.Name = "btnOpen";
-			this.btnOpen.Size = new System.Drawing.Size(224, 26);
+			this.btnOpen.Size = new System.Drawing.Size(154, 26);
 			this.btnOpen.Text = "Open...";
 			this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
 			// 
 			// toolStripMenuItem4
 			// 
 			this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-			this.toolStripMenuItem4.Size = new System.Drawing.Size(221, 6);
+			this.toolStripMenuItem4.Size = new System.Drawing.Size(151, 6);
 			// 
 			// btnSave
 			// 
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(224, 26);
+			this.btnSave.Size = new System.Drawing.Size(154, 26);
 			this.btnSave.Text = "Save";
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// btnSaveAs
 			// 
 			this.btnSaveAs.Name = "btnSaveAs";
-			this.btnSaveAs.Size = new System.Drawing.Size(224, 26);
+			this.btnSaveAs.Size = new System.Drawing.Size(154, 26);
 			this.btnSaveAs.Text = "Save As...";
 			this.btnSaveAs.Click += new System.EventHandler(this.btnSaveAs_Click);
 			// 
 			// toolStripMenuItem3
 			// 
 			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-			this.toolStripMenuItem3.Size = new System.Drawing.Size(221, 6);
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(151, 6);
 			// 
 			// btnSettings
 			// 
 			this.btnSettings.Name = "btnSettings";
-			this.btnSettings.Size = new System.Drawing.Size(224, 26);
+			this.btnSettings.Size = new System.Drawing.Size(154, 26);
 			this.btnSettings.Text = "Settings...";
 			this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(221, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(151, 6);
 			// 
 			// btnExit
 			// 
 			this.btnExit.Name = "btnExit";
-			this.btnExit.Size = new System.Drawing.Size(224, 26);
+			this.btnExit.Size = new System.Drawing.Size(154, 26);
 			this.btnExit.Text = "Exit";
 			this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
 			// 
@@ -150,7 +150,7 @@
 			// 
 			this.convertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnConvert,
-            this.btnRecordAudioPreview});
+            this.btnBulkAudioRecord});
 			this.convertToolStripMenuItem.Name = "convertToolStripMenuItem";
 			this.convertToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
 			this.convertToolStripMenuItem.Text = "Tools";
@@ -158,9 +158,16 @@
 			// btnConvert
 			// 
 			this.btnConvert.Name = "btnConvert";
-			this.btnConvert.Size = new System.Drawing.Size(237, 26);
+			this.btnConvert.Size = new System.Drawing.Size(224, 26);
 			this.btnConvert.Text = "Convert to ...";
 			this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
+			// 
+			// btnBulkAudioRecord
+			// 
+			this.btnBulkAudioRecord.Name = "btnBulkAudioRecord";
+			this.btnBulkAudioRecord.Size = new System.Drawing.Size(224, 26);
+			this.btnBulkAudioRecord.Text = "Bulk audio record";
+			this.btnBulkAudioRecord.Click += new System.EventHandler(this.btnBulkAudioRecord_Click);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -173,16 +180,9 @@
 			// btnAbout
 			// 
 			this.btnAbout.Name = "btnAbout";
-			this.btnAbout.Size = new System.Drawing.Size(224, 26);
+			this.btnAbout.Size = new System.Drawing.Size(133, 26);
 			this.btnAbout.Text = "About";
 			this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
-			// 
-			// btnRecordAudioPreview
-			// 
-			this.btnRecordAudioPreview.Name = "btnRecordAudioPreview";
-			this.btnRecordAudioPreview.Size = new System.Drawing.Size(237, 26);
-			this.btnRecordAudioPreview.Text = "Record audio preview";
-			this.btnRecordAudioPreview.Click += new System.EventHandler(this.btnRecordAudioPreview_Click);
 			// 
 			// MainForm
 			// 
@@ -222,6 +222,6 @@
 		private System.Windows.Forms.ToolStripMenuItem btnNewMMRSFile;
 		private System.Windows.Forms.ToolStripMenuItem btnSettings;
 		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-		private System.Windows.Forms.ToolStripMenuItem btnRecordAudioPreview;
+		private System.Windows.Forms.ToolStripMenuItem btnBulkAudioRecord;
 	}
 }

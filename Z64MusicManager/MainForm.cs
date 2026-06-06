@@ -380,8 +380,35 @@ namespace Z64MusicManager {
 			}
 		}
 
-		private void btnRecordAudioPreview_Click(object sender, EventArgs e) {
+		private void btnBulkAudioRecord_Click(object sender, EventArgs e) {
+			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
+			ofd.Filter = "Z64 Sound Files(*.ootrs;*.mmrs)|*.ootrs;*.mmrs|All files (*.*)|*.*";
+			ofd.RestoreDirectory = true;
+			ofd.Multiselect = true;
 
+			// We show the open file dialog
+			DialogResult result = ofd.ShowDialog();
+
+			if (result == DialogResult.OK) {
+				var tasks = new List<Task>();
+				foreach(string filename in ofd.FileNames) {
+					// Only support mmrs for now
+					// TODO: Allow async processing?
+					if (filename.EndsWith(".mmrs")) {
+						tasks.Add(Task.Run(() => {
+							MMRForm form = new MMRForm();
+							form.FileName = filename;
+							form.FillFormWithCurrentFile();
+							form.Record();
+						}));
+					}
+				}
+
+				// Wait for all recordings to finish
+				Task.WaitAll(tasks.ToArray());
+				MessageBox.Show("Recording completed!", "Z64 Music Manager", MessageBoxButtons.OK);
+			}
 		}
 	}
 }

@@ -15,8 +15,14 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_161D8A083E0D463E8F99F037BCCE76DB"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_0F3A041186AD02381BF1DAD267D6C328"
+        "OwnerKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5733573472FEDCD518CD8F6B6B2B60EE"
+        "OwnerKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -27,14 +33,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_655774F3E6BB4C8389AEB05901D719CB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6A41D5FED4891C610E05784BA6CC53E6"
         "OwnerKey" = "8:_8F31D9C3E51F78666F53C16E9D872BB5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_700FA5737CAA4F669238407C60B230F3"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_6A41D5FED4891C610E05784BA6CC53E6"
+        "OwnerKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,20 +57,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7877C84341BF44FD8C71D3B99A3E3B54"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_78F85DB71A824DB3AB9264E72EDF5E56"
+        "MsmKey" = "8:_8A782113C48146DA83EEB0B4D3F7825D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_8F31D9C3E51F78666F53C16E9D872BB5"
-        "OwnerKey" = "8:_610F923E49E540D21CD83A2672B9DF6E"
+        "OwnerKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,8 +75,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BC6098C703274BC2BAA78229FD733C19"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_8F31D9C3E51F78666F53C16E9D872BB5"
+        "OwnerKey" = "8:_610F923E49E540D21CD83A2672B9DF6E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9DA3292492E0C4C6FE2F8BAB93F914B2"
+        "OwnerKey" = "8:_BDB5C20DC74A4F6295DD96468603D889"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9DA3292492E0C4C6FE2F8BAB93F914B2"
+        "OwnerKey" = "8:_E3D18351C2DD5EC8652916B3AF2028D4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -81,8 +99,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C639DB9683984DFEACC827D86FFF425C"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
+        "OwnerKey" = "8:_BDB5C20DC74A4F6295DD96468603D889"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
+        "OwnerKey" = "8:_E3D18351C2DD5EC8652916B3AF2028D4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
+        "OwnerKey" = "8:_9DA3292492E0C4C6FE2F8BAB93F914B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E3D18351C2DD5EC8652916B3AF2028D4"
+        "OwnerKey" = "8:_BDB5C20DC74A4F6295DD96468603D889"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -93,12 +129,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F0B3CB1B952F4D6AA59F99E673BE58D3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BDB5C20DC74A4F6295DD96468603D889"
         "MsmSig" = "8:_UNDEFINED"
@@ -106,19 +136,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6A41D5FED4891C610E05784BA6CC53E6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8F31D9C3E51F78666F53C16E9D872BB5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_610F923E49E540D21CD83A2672B9DF6E"
+        "OwnerKey" = "8:_EFAB5A8C019F41E3121E754E8F9AB228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +148,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EFAB5A8C019F41E3121E754E8F9AB228"
+        "OwnerKey" = "8:_610F923E49E540D21CD83A2672B9DF6E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C9CA986E5E612F59E2C398B750B64C2A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0F3A041186AD02381BF1DAD267D6C328"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5733573472FEDCD518CD8F6B6B2B60EE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8F31D9C3E51F78666F53C16E9D872BB5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6A41D5FED4891C610E05784BA6CC53E6"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -220,7 +268,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:v4.8.1 "
+                "FrameworkVersion" = "8:v4.8.1  "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=671728"
                 }
@@ -228,10 +276,21 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_161D8A083E0D463E8F99F037BCCE76DB"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0F3A041186AD02381BF1DAD267D6C328"
             {
-            "SourcePath" = "8:..\\Z64MusicManager\\mm-skip-intro.lua"
-            "TargetName" = "8:mm-skip-intro.lua"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_0F3A041186AD02381BF1DAD267D6C328"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
             "Condition" = "8:"
@@ -245,7 +304,38 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5733573472FEDCD518CD8F6B6B2B60EE"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:TRUE"
+            "AssemblyAsmDisplayName" = "8:System.Diagnostics.Tracing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5733573472FEDCD518CD8F6B6B2B60EE"
+                    {
+                    "Name" = "8:System.Diagnostics.Tracing.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Diagnostics.Tracing.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_610F923E49E540D21CD83A2672B9DF6E"
@@ -255,6 +345,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression.ZipFile, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_610F923E49E540D21CD83A2672B9DF6E"
+                    {
+                    "Name" = "8:System.IO.Compression.ZipFile.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.ZipFile.dll"
             "TargetName" = "8:"
@@ -272,6 +367,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_655774F3E6BB4C8389AEB05901D719CB"
+            {
+            "SourcePath" = "8:..\\Z64MusicManager\\mmrs.ico"
+            "TargetName" = "8:mmrs.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6A41D5FED4891C610E05784BA6CC53E6"
@@ -305,26 +420,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_700FA5737CAA4F669238407C60B230F3"
-            {
-            "SourcePath" = "8:..\\Z64MusicManager\\ootr-songtest-cosmeticplando.json"
-            "TargetName" = "8:ootr-songtest-cosmeticplando.json"
-            "Tag" = "8:"
-            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_71CC382B3E1DC41E83DCC6C46B2EFDF0"
             {
             "AssemblyRegister" = "3:1"
@@ -332,6 +427,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_71CC382B3E1DC41E83DCC6C46B2EFDF0"
+                    {
+                    "Name" = "8:System.IO.Compression.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.dll"
             "TargetName" = "8:"
@@ -351,27 +451,7 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7877C84341BF44FD8C71D3B99A3E3B54"
-            {
-            "SourcePath" = "8:..\\Z64MusicManager\\ootr-songtest-settings.json"
-            "TargetName" = "8:ootr-songtest-settings.json"
-            "Tag" = "8:"
-            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_78F85DB71A824DB3AB9264E72EDF5E56"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8A782113C48146DA83EEB0B4D3F7825D"
             {
             "SourcePath" = "8:..\\Z64MusicManager\\ootrs.ico"
             "TargetName" = "8:ootrs.ico"
@@ -398,6 +478,11 @@
             "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
                 "ScatterAssemblies"
                 {
+                    "_8F31D9C3E51F78666F53C16E9D872BB5"
+                    {
+                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
             "TargetName" = "8:"
@@ -417,55 +502,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BC6098C703274BC2BAA78229FD733C19"
-            {
-            "SourcePath" = "8:..\\Z64MusicManager\\mmr-default-settings.json"
-            "TargetName" = "8:mmr-default-settings.json"
-            "Tag" = "8:"
-            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C639DB9683984DFEACC827D86FFF425C"
-            {
-            "SourcePath" = "8:..\\Z64MusicManager\\mmrs.ico"
-            "TargetName" = "8:mmrs.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EFAB5A8C019F41E3121E754E8F9AB228"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9DA3292492E0C4C6FE2F8BAB93F914B2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:NAudio.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=e279aa5131008a41, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_9DA3292492E0C4C6FE2F8BAB93F914B2"
+                    {
+                    "Name" = "8:NAudio.Core.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
-            "SourcePath" = "8:System.Net.Http.dll"
+            "SourcePath" = "8:NAudio.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
@@ -473,7 +523,7 @@
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -483,10 +533,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F0B3CB1B952F4D6AA59F99E673BE58D3"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C9CA986E5E612F59E2C398B750B64C2A"
             {
-            "SourcePath" = "8:..\\Z64MusicManager\\bizhawk-config.ini"
-            "TargetName" = "8:bizhawk-config.ini"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51"
+                "ScatterAssemblies"
+                {
+                    "_C9CA986E5E612F59E2C398B750B64C2A"
+                    {
+                    "Name" = "8:netstandard.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:netstandard.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
             "Condition" = "8:"
@@ -500,7 +561,69 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E3D18351C2DD5EC8652916B3AF2028D4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NAudio.Lame, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_E3D18351C2DD5EC8652916B3AF2028D4"
+                    {
+                    "Name" = "8:NAudio.Lame.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NAudio.Lame.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EFAB5A8C019F41E3121E754E8F9AB228"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_EFAB5A8C019F41E3121E754E8F9AB228"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9C7578626BCE4786ABF5609D4508BEF2"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -512,7 +635,7 @@
             "Description" = "8:"
             "Extensions" = "8:mmrs"
             "MIME" = "8:"
-            "Icon" = "8:_C639DB9683984DFEACC827D86FFF425C"
+            "Icon" = "8:_655774F3E6BB4C8389AEB05901D719CB"
             "IconIndex" = "3:0"
                 "Command"
                 {
@@ -535,7 +658,7 @@
             "Description" = "8:"
             "Extensions" = "8:ootrs"
             "MIME" = "8:"
-            "Icon" = "8:_78F85DB71A824DB3AB9264E72EDF5E56"
+            "Icon" = "8:_8A782113C48146DA83EEB0B4D3F7825D"
             "IconIndex" = "3:0"
                 "Command"
                 {
@@ -606,7 +729,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Z64 Music Manager"
         "ProductCode" = "8:{82DAF12B-6253-4DE2-A2DF-503A84A7F3C8}"
-        "PackageCode" = "8:{E79F8EE1-344B-4B8E-A0C0-EBC47CDF3547}"
+        "PackageCode" = "8:{F1574997-44D4-4767-8C9C-0AFE6D87485D}"
         "UpgradeCode" = "8:{9C864BDB-2E40-4138-A5A5-226C978B6FFB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
