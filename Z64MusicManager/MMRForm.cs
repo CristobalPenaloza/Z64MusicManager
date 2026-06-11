@@ -180,6 +180,23 @@ namespace Z64MusicManager {
 			}
 		}
 
+		protected override bool IsFanfare() {
+			foreach (var item in clbCategories.CheckedItems) {
+				string categoryId = item.ToString().Between("[", "]");
+				if (MMCategory.GeneralFanfareCategories.Any(c => c.Id == categoryId) || MMCategory.SpecificFanfareCategories.Any(c => c.Id == categoryId)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		protected override string SkipIntroLuaPath() {
+			return "mm-skip-intro.lua";
+		}
+
+		protected override int GetIntroFrames() {
+			return 226;
+		}
 
 
 		private void tbMainVolume_ValueChanged(object sender, EventArgs e) {
@@ -287,16 +304,6 @@ namespace Z64MusicManager {
 
 				return null;
 			}
-		}
-
-		protected override bool IsFanfare() {
-			foreach (var item in clbCategories.CheckedItems) {
-				string categoryId = item.ToString().Between("[", "]");
-				if (MMCategory.GeneralFanfareCategories.Any(c => c.Id == categoryId) || MMCategory.SpecificFanfareCategories.Any(c => c.Id == categoryId)) {
-					return true;
-				}
-			}
-			return false;
 		}
 
 		private void btnPreview_Click(object sender, EventArgs e) {

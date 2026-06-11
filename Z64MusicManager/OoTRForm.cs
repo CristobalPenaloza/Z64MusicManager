@@ -87,6 +87,11 @@ namespace Z64MusicManager{
 
 							// Process the .seq file
 							if (extension == ".seq") {
+
+								// Calculate the duration of the file
+								Duration = SeqUtils.CalculateDuration(() => entry.Open());
+								lbDuration.Text = "Duration: " + Duration.ToString(@"mm\:ss");
+
 								// Search the file until we find the master volume command (0xDB)
 								int mainVolume = SeqUtils.SearchSeqCommandValue(() => entry.Open(), 0xDB);
 								tbMainVolume.Value = mainVolume;
@@ -247,6 +252,14 @@ namespace Z64MusicManager{
 			return cbxSequenceType.SelectedItem?.ToString() == "Fanfare";
 		}
 
+		protected override string SkipIntroLuaPath() {
+			return "ootr-press-start.lua";
+		}
+
+		protected override int GetIntroFrames() {
+			return 560;
+		}
+
 		protected override string GeneratePreviewRom(bool unique = false) {
 			// Lock this process to allow safe concurrency
 			lock (_generatePreviewLock) {
@@ -257,7 +270,10 @@ namespace Z64MusicManager{
 					// Get the necesary paths
 					string ootrFolder = Path.GetDirectoryName(ootrCLIPath);
 					string songtestPath = ootrFolder + "\\data\\Music\\_zmusicmanager-songtest.ootrs";
-					string outputRom = ootrFolder + $"\\Output\\{(unique ? Guid.NewGuid().ToString() : "")}_zmusicmanager-songtest.z64";
+
+					// TODO: OOTR DEFINES ITS OUTPUT FILE ON THE SETTINGS!!!
+					//string outputRom = ootrFolder + $"\\Output\\{(unique ? Guid.NewGuid().ToString() : "")}_zmusicmanager-songtest.z64";
+					string outputRom = ootrFolder + $"\\Output\\_zmusicmanager-songtest.z64";
 					string ootrSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-settings.json";
 					string ootrCosmeticPlandoPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-cosmeticplando.json";
 					string pythonPath = WinUtils.GetPythonPath();

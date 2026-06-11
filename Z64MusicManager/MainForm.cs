@@ -57,6 +57,14 @@ namespace Z64MusicManager {
 			throw new NotImplementedException();
 		}
 
+		protected virtual string SkipIntroLuaPath() {
+			throw new NotImplementedException();
+		}
+
+		protected virtual int GetIntroFrames() {
+			throw new NotImplementedException();
+		}
+
 
 
 		// GENERAL METHODS AND EVENT HANDLERS
@@ -410,9 +418,9 @@ namespace Z64MusicManager {
 				} else {
 					// If we have BizHawk configured, then skip the title screen with the LUA script
 					using (Process previewProcess = new Process()) {
-						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+						string skipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SkipIntroLuaPath());
 						previewProcess.StartInfo.FileName = bizhawkPath;
-						previewProcess.StartInfo.Arguments = $"--lua \"{mmSkipIntroLuaPath}\"  \"{previewRom}\"";
+						previewProcess.StartInfo.Arguments = $"--lua \"{skipIntroLuaPath}\"  \"{previewRom}\"";
 						previewProcess.Start();
 						previewProcess.WaitForExit();
 					}
@@ -422,7 +430,7 @@ namespace Z64MusicManager {
 				ShowError("An error while opening the ROM!", ex.ToString());
 			
 			} finally {
-				// Remove the generated preview rom
+				// Remove the song from the music folder so we don't disturb normal usage of the randomizer
 				if(!string.IsNullOrEmpty(previewRom)) File.Delete(previewRom);
 			}
 		}
@@ -432,18 +440,18 @@ namespace Z64MusicManager {
 			if (!string.IsNullOrEmpty(bizhawkPath)) {
 
 				string previewRom = GeneratePreviewRom(unique: true);
-				string wavFilePath = FileName.Replace(".mmrs", ".wav");
+				string wavFilePath = FileName.Replace(".mmrs", ".wav").Replace(".ootrs", ".wav");
 
 				try {
 					bool isFanfare = IsFanfare();
-					int introFrames = 226;
+					int introFrames = GetIntroFrames();
 					int fadeOutMilliseconds = isFanfare ? 0 : 5000;
 
 					// Create the recording process and monitor it
 					using (Process previewProcess = new Process()) {
 						// The N64 intro and main menu run at 60 fps
 						int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
-						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SkipIntroLuaPath());
 						string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
 						previewProcess.StartInfo.FileName = bizhawkPath;
 						previewProcess.StartInfo.Arguments = $"--dump-name \"{wavFilePath}\" --dump-type \"wave\" --dump-close \"true\" --dump-length {duration} --config \"{bizhawkConfigPath}\" --lua \"{mmSkipIntroLuaPath}\" \"{previewRom}\"";
@@ -456,7 +464,8 @@ namespace Z64MusicManager {
 					using (var reader = new WaveFileReader(wavFilePath)) {
 
 						// Skip the intro
-						reader.CurrentTime = TimeSpan.FromSeconds(2.2);
+						//reader.CurrentTime = TimeSpan.FromSeconds(2.2);
+						reader.CurrentTime = TimeSpan.FromSeconds((introFrames / 60) - 1.5);
 
 						// Add a fadeout to the end of the file
 						var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
