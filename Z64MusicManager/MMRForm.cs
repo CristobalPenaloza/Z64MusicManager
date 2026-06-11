@@ -187,8 +187,6 @@ namespace Z64MusicManager {
 		}
 
 
-
-
 		protected override void ConvertFile(string path) {
 			string fileName = Path.GetFileNameWithoutExtension(path);
 
@@ -239,7 +237,7 @@ namespace Z64MusicManager {
 
 
 
-		private string GeneratePreviewRom(bool unique = false) {
+		protected override string GeneratePreviewRom(bool unique = false) {
 			// Lock this process to allow safe concurrency
 			lock (_generatePreviewLock) {
 
@@ -291,31 +289,7 @@ namespace Z64MusicManager {
 			}
 		}
 
-		private void btnPreview_Click(object sender, EventArgs e) {
-			try {
-				// Generate the rom and open it
-				string previewRom = GeneratePreviewRom();
-				string bizhawkPath = Properties.Settings.Default.BizhawkPath;
-				if (string.IsNullOrEmpty(bizhawkPath)) {
-					Process.Start(previewRom);
-
-				} else {
-					// If we have BizHawk configured, then skip the title screen with the LUA script
-					using (Process previewProcess = new Process()) {
-						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
-						previewProcess.StartInfo.FileName = bizhawkPath;
-						previewProcess.StartInfo.Arguments = $"--lua \"{mmSkipIntroLuaPath}\"  \"{previewRom}\"";
-						previewProcess.Start();
-						previewProcess.WaitForExit();
-					}
-				}
-
-			} catch (Exception ex) {
-				ShowError("An error while opening the ROM!", ex.ToString());
-			}
-		}
-
-		protected bool IsFanfare() {
+		protected override bool IsFanfare() {
 			foreach (var item in clbCategories.CheckedItems) {
 				string categoryId = item.ToString().Between("[", "]");
 				if (MMCategory.GeneralFanfareCategories.Any(c => c.Id == categoryId) || MMCategory.SpecificFanfareCategories.Any(c => c.Id == categoryId)) {
@@ -325,75 +299,13 @@ namespace Z64MusicManager {
 			return false;
 		}
 
+		private void btnPreview_Click(object sender, EventArgs e) {
+			Preview();
+		}
 
 		private void btnRecord_Click(object sender, EventArgs e) {
 			Record();
 		}
-		public void Record() {
-			string bizhawkPath = Properties.Settings.Default.BizhawkPath;
-			if (!string.IsNullOrEmpty(bizhawkPath)) {
-
-				string previewRom = GeneratePreviewRom(unique: true);
-				string wavFilePath = FileName.Replace(".mmrs", ".wav");
-
-				try {
-
-					bool isFanfare = IsFanfare();
-					int introFrames = 226;
-					int fadeOutMilliseconds = isFanfare ? 0 : 5000;
-
-					// Create the recording process and monitor it
-					using (Process previewProcess = new Process()) {
-						// The N64 intro and main menu run at 60 fps
-						int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
-						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
-						string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
-						previewProcess.StartInfo.FileName = bizhawkPath;
-						previewProcess.StartInfo.Arguments = $"--dump-name \"{wavFilePath}\" --dump-type \"wave\" --dump-close \"true\" --dump-length {duration} --config \"{bizhawkConfigPath}\" --lua \"{mmSkipIntroLuaPath}\" \"{previewRom}\"";
-						previewProcess.Start();
-						previewProcess.WaitForExit();
-					}
-					
-
-					// OK, now convert the wav to mp3
-					using (var reader = new WaveFileReader(wavFilePath)) {
-
-						// Skip the intro
-						reader.CurrentTime = TimeSpan.FromSeconds(2.2);
-
-						// Add a fadeout to the end of the file
-						var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
-						var pcmProvider = new SampleToWaveProvider16(fader);
-
-						TimeSpan fadeOutStart = reader.TotalTime.Subtract(TimeSpan.FromMilliseconds(fadeOutMilliseconds));
-						bool isFadingOut = false;
-
-						// Write the mp3
-						using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), pcmProvider.WaveFormat, 128)) {
-							// 16-bit PCM uses a byte buffer instead of a float buffer
-							byte[] buffer = new byte[pcmProvider.WaveFormat.SampleRate * pcmProvider.WaveFormat.Channels * 2];
-							int bytesRead;
-
-							// Read and write the audio data
-							while ((bytesRead = pcmProvider.Read(buffer, 0, buffer.Length)) > 0) {
-								// Dynamically trigger the fade-out
-								if (fadeOutMilliseconds > 0 && !isFadingOut && reader.CurrentTime >= fadeOutStart) {
-									fader.BeginFadeOut(fadeOutMilliseconds - 500);
-									isFadingOut = true;
-								}
-								writer.Write(buffer, 0, bytesRead);
-							}
-						}
-					}
-
-				} finally {
-					// Cleanup the generated files
-					File.Delete(previewRom);
-					File.Delete(previewRom.Replace(".z64", ".png"));
-					File.Delete(previewRom.Replace(".z64", "_SongLog.txt"));
-					File.Delete(wavFilePath);
-				}
-			}
-		}
+		
 	}
 }

@@ -16,6 +16,11 @@ namespace Z64MusicManager.Utils {
 		public const byte END = 0xFF;
 		public const byte SECTION_START = 0xC4;
 
+		// Other commands to check to prevent issues...
+		// Eventually implement every command, so we can check properly
+		public const byte INIT_CHAN = 0xD7;
+		public const byte DISABLE_CHAN = 0xD6;
+
 		public const int PPQN = 48;
 
 		public static int SearchSeqCommandValue(Func<Stream> streamProvider, int commandId) {
@@ -54,6 +59,10 @@ namespace Z64MusicManager.Utils {
 			}
 		}
 
+		// Falla porque el comando anterior es un INITCHAN (0xD7)
+		// DISABLECHAN (0xD6)
+
+
 		public static TimeSpan CalculateDuration(Func<Stream> streamProvider) {
 			List<TempoChange> tempos = new List<TempoChange>();
 			using (var reader = new BinaryReader(streamProvider())) {
@@ -62,6 +71,13 @@ namespace Z64MusicManager.Utils {
 					bool foundEnd = false;
 					while (true) {
 						byte b = reader.ReadByte();
+
+						// If we find any of these commands, advance the reader to not disrupt anything else
+						// These are not "variables", so we always read 2 bytes
+						if(b == INIT_CHAN || b == DISABLE_CHAN) {
+							reader.ReadBytes(2);
+						}
+
 						// If we find a tempo command, then we changed tempo!
 						if (b == TEMPO) {
 							currentTempo = reader.ReadByte();
@@ -69,6 +85,7 @@ namespace Z64MusicManager.Utils {
 
 						// If we find a delay (or timestamp, or ticks), we add it to the list with our current tempo
 						if (b == DELAY) {
+							// TODO: MAKE THIS A UTIL METHOD, TO READ "VARIABLE" VALUES
 							// Delay is a "variable" type of data, meaning it can be multiple bytes long.
 							// How seq64 handles it:
 							// https://github.com/sauraen/seq64/blob/47500ab1bbf93eeaad35806ff6a13163cc11538a/Source/SeqFile.cpp#L4783
@@ -99,13 +116,6 @@ namespace Z64MusicManager.Utils {
 							if (b == SECTION_START) break;
 							else foundEnd = false;
 						}
-
-						/*if (tempos.Count > 0) {
-							if (b == 0xFF) {
-								break;
-								//if (reader.ReadUInt16BE() == SECTION) break;
-							}
-						}*/
 					}
 				} catch (EndOfStreamException) {
 					return TimeSpan.Zero;
@@ -115,11 +125,13 @@ namespace Z64MusicManager.Utils {
 			// Now we can calculate the duration of the song
 			TimeSpan duration = TimeSpan.Zero;
 			foreach (var tempo in tempos) {
+				if(tempo.Tempo == 0) continue; // Avoid division by 0
 				double minutes = (double)tempo.Delay / (PPQN * tempo.Tempo);
 				duration += TimeSpan.FromMinutes(minutes);
 			}
 			return duration;
 		}
+
 
 		public class TempoChange {
 			public TempoChange(byte tempo, ushort delay) {

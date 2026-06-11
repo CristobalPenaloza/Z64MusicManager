@@ -1,4 +1,7 @@
-﻿using System;
+﻿using NAudio.Lame;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +13,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -42,6 +46,14 @@ namespace Z64MusicManager {
 		}
 
 		protected virtual void ConvertFile(string path) {
+			throw new NotImplementedException();
+		}
+
+		protected virtual string GeneratePreviewRom(bool unique = false) {
+			throw new NotImplementedException();
+		}
+
+		protected virtual bool IsFanfare() {
 			throw new NotImplementedException();
 		}
 
@@ -85,9 +97,7 @@ namespace Z64MusicManager {
 			if (result == DialogResult.OK) {
 				// Save the filename path in a setting so we can persist it for the future...
 				FileName = ofd.FileName;
-				Properties.Settings.Default.LastPath = Path.GetDirectoryName(FileName);
-				Properties.Settings.Default.Save();
-
+				
 				// We open the file!
 				OpenCurrentFile();
 			}
@@ -136,6 +146,9 @@ namespace Z64MusicManager {
 				NewFile();
 				return;
 			}
+
+			Properties.Settings.Default.LastPath = Path.GetDirectoryName(FileName);
+			Properties.Settings.Default.Save();
 
 			var form = SwapForm(FileName.EndsWith(".ootrs") ? "OoTRForm" : "MMRForm");
 			form.FillFormWithCurrentFile();
@@ -380,6 +393,109 @@ namespace Z64MusicManager {
 			}
 		}
 
+
+
+		// ========= PREVIEWS AND RECORDINGS ==========
+
+		public void Preview() {
+			string previewRom = null;
+			try {
+				// Generate the rom and open it
+				previewRom = GeneratePreviewRom();
+
+				string bizhawkPath = Properties.Settings.Default.BizhawkPath;
+				if (string.IsNullOrEmpty(bizhawkPath)) {
+					Process.Start(previewRom);
+
+				} else {
+					// If we have BizHawk configured, then skip the title screen with the LUA script
+					using (Process previewProcess = new Process()) {
+						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+						previewProcess.StartInfo.FileName = bizhawkPath;
+						previewProcess.StartInfo.Arguments = $"--lua \"{mmSkipIntroLuaPath}\"  \"{previewRom}\"";
+						previewProcess.Start();
+						previewProcess.WaitForExit();
+					}
+				}
+
+			} catch (Exception ex) {
+				ShowError("An error while opening the ROM!", ex.ToString());
+			
+			} finally {
+				// Remove the generated preview rom
+				if(!string.IsNullOrEmpty(previewRom)) File.Delete(previewRom);
+			}
+		}
+
+		public void Record() {
+			string bizhawkPath = Properties.Settings.Default.BizhawkPath;
+			if (!string.IsNullOrEmpty(bizhawkPath)) {
+
+				string previewRom = GeneratePreviewRom(unique: true);
+				string wavFilePath = FileName.Replace(".mmrs", ".wav");
+
+				try {
+					bool isFanfare = IsFanfare();
+					int introFrames = 226;
+					int fadeOutMilliseconds = isFanfare ? 0 : 5000;
+
+					// Create the recording process and monitor it
+					using (Process previewProcess = new Process()) {
+						// The N64 intro and main menu run at 60 fps
+						int duration = introFrames + (int)((Duration.TotalSeconds * 60) + (fadeOutMilliseconds * 0.001 * 60)) + (isFanfare ? 60 : 0);
+						string mmSkipIntroLuaPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mm-skip-intro.lua");
+						string bizhawkConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bizhawk-config.ini");
+						previewProcess.StartInfo.FileName = bizhawkPath;
+						previewProcess.StartInfo.Arguments = $"--dump-name \"{wavFilePath}\" --dump-type \"wave\" --dump-close \"true\" --dump-length {duration} --config \"{bizhawkConfigPath}\" --lua \"{mmSkipIntroLuaPath}\" \"{previewRom}\"";
+						previewProcess.Start();
+						previewProcess.WaitForExit();
+					}
+
+
+					// OK, now convert the wav to mp3
+					using (var reader = new WaveFileReader(wavFilePath)) {
+
+						// Skip the intro
+						reader.CurrentTime = TimeSpan.FromSeconds(2.2);
+
+						// Add a fadeout to the end of the file
+						var fader = new FadeInOutSampleProvider(reader.ToSampleProvider());
+						var pcmProvider = new SampleToWaveProvider16(fader);
+
+						TimeSpan fadeOutStart = reader.TotalTime.Subtract(TimeSpan.FromMilliseconds(fadeOutMilliseconds));
+						bool isFadingOut = false;
+
+						// Write the mp3
+						using (var writer = new LameMP3FileWriter(wavFilePath.Replace(".wav", ".mp3"), pcmProvider.WaveFormat, 128)) {
+							// 16-bit PCM uses a byte buffer instead of a float buffer
+							byte[] buffer = new byte[pcmProvider.WaveFormat.SampleRate * pcmProvider.WaveFormat.Channels * 2];
+							int bytesRead;
+
+							// Read and write the audio data
+							while ((bytesRead = pcmProvider.Read(buffer, 0, buffer.Length)) > 0) {
+								// Dynamically trigger the fade-out
+								if (fadeOutMilliseconds > 0 && !isFadingOut && reader.CurrentTime >= fadeOutStart) {
+									fader.BeginFadeOut(fadeOutMilliseconds - 500);
+									isFadingOut = true;
+								}
+								writer.Write(buffer, 0, bytesRead);
+							}
+						}
+					}
+
+				} finally {
+					// Cleanup the generated files
+					File.Delete(previewRom);
+					File.Delete(previewRom.Replace(".z64", ".png"));
+					File.Delete(previewRom.Replace(".z64", "_SongLog.txt"));
+					File.Delete(wavFilePath);
+				}
+			}
+		}
+
+
+		// Limit the number of concurrent recordings to 5... we don't want to nuke the user's pc lol
+		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(10);
 		private void btnBulkAudioRecord_Click(object sender, EventArgs e) {
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.InitialDirectory = Properties.Settings.Default.LastPath ?? "C:\\";
@@ -397,16 +513,23 @@ namespace Z64MusicManager {
 					// TODO: Allow async processing?
 					if (filename.EndsWith(".mmrs")) {
 						tasks.Add(Task.Run(() => {
-							MMRForm form = new MMRForm();
-							form.FileName = filename;
-							form.FillFormWithCurrentFile();
-							form.Record();
+							try {
+								_semaphore.Wait();
+								MMRForm form = new MMRForm();
+								form.FileName = filename;
+								form.FillFormWithCurrentFile();
+								form.Record();
+							} finally {
+								_semaphore.Release();
+							}
 						}));
 					}
 				}
 
 				// Wait for all recordings to finish
 				Task.WaitAll(tasks.ToArray());
+				Properties.Settings.Default.LastPath = Path.GetDirectoryName(ofd.FileNames[0]);
+				Properties.Settings.Default.Save();
 				MessageBox.Show("Recording completed!", "Z64 Music Manager", MessageBoxButtons.OK);
 			}
 		}
