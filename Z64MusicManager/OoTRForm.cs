@@ -257,10 +257,10 @@ namespace Z64MusicManager{
 		}
 
 		protected override int GetIntroFrames() {
-			return 560;
+			return 565; // 560 (some songs have a lingering note that can be heard... test (e.g. Death by Glamour)
 		}
 
-		protected override string GeneratePreviewRom(bool unique = false) {
+		protected override string GeneratePreviewRom() {
 			// Lock this process to allow safe concurrency
 			lock (_generatePreviewLock) {
 				// Check if the custom music starter exists
@@ -271,11 +271,12 @@ namespace Z64MusicManager{
 					string ootrFolder = Path.GetDirectoryName(ootrCLIPath);
 					string songtestPath = ootrFolder + "\\data\\Music\\_zmusicmanager-songtest.ootrs";
 
-					// TODO: OOTR DEFINES ITS OUTPUT FILE ON THE SETTINGS!!!
-					//string outputRom = ootrFolder + $"\\Output\\{(unique ? Guid.NewGuid().ToString() : "")}_zmusicmanager-songtest.z64";
-					string outputRom = ootrFolder + $"\\Output\\_zmusicmanager-songtest.z64";
-					string ootrSettingsPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-settings.json";
-					string ootrCosmeticPlandoPath = AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-cosmeticplando.json";
+
+					string guid = Guid.NewGuid().ToString();
+					string ootrSettingsPath = $"{ootrFolder}\\{guid}_ootr-songtest-settings.json";
+					string ootrCosmeticPlandoPath = $"{ootrFolder}\\{guid}_ootr-songtest-cosmeticplando.json";
+					string songName = $"{guid}_zmusicmanager-songtest";
+					string outputRom = ootrFolder + $"\\Output\\{songName}.z64";
 					string pythonPath = WinUtils.GetPythonPath();
 
 					// First, we copy our current opened file to the OoTR music folder
@@ -289,8 +290,8 @@ namespace Z64MusicManager{
 						if (lines.Count < 4) {
 							for (int i = 0; i <= 4 - lines.Count; i++) lines.Add("");
 						}
-						lines[0] = "_zmusicmanager-songtest";
-						lines[2] = "Bgm";
+						lines[0] = songName;
+						// lines[2] = "Bgm";
 
 						// Write all the lines to the entry
 						using (var entryStream = metaEntry.Open()) {
@@ -301,38 +302,50 @@ namespace Z64MusicManager{
 						}
 					}
 
-					// We also copy the cosmetic plando file to the OoTR music folder
-					File.Copy(ootrCosmeticPlandoPath, ootrFolder + "\\ootr-songtest-cosmeticplando.json", true);
+					try {
+						// Now create a settings file using our template
+						string settingsTemplate = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-settings.json");
+						File.WriteAllText(ootrSettingsPath, settingsTemplate.Replace("_zmusicmanager-songtest", songName).Replace("ootr-songtest-cosmeticplando.json", $"{guid}_ootr-songtest-cosmeticplando.json"));
 
-					// Next, we create the rom using OoT python CLI
-					var sb = new StringBuilder();
-					using (Process romCreationProcess = new Process()) {
+						// And also create a cosmetic plando file in the OoTR music folder
+						string cosmeticPlandoTemplate = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\ootr-songtest-cosmeticplando.json");
+						File.WriteAllText(ootrCosmeticPlandoPath, cosmeticPlandoTemplate.Replace("_zmusicmanager-songtest", songName));
 
-						romCreationProcess.StartInfo.FileName = pythonPath;
-						romCreationProcess.StartInfo.Arguments = ootrCLIPath + " --settings \"" + ootrSettingsPath + "\"";
+						// Next, we create the rom using OoT python CLI
+						var sb = new StringBuilder();
+						using (Process romCreationProcess = new Process()) {
 
-						// Redirect output
-						/*romCreationProcess.StartInfo.RedirectStandardOutput = true;
-						romCreationProcess.StartInfo.RedirectStandardError = true;
-						romCreationProcess.OutputDataReceived += (s, args) => sb.AppendLine(args.Data);
-						romCreationProcess.ErrorDataReceived += (s, args) => sb.AppendLine(args.Data);*/
-						romCreationProcess.StartInfo.UseShellExecute = false;
+							romCreationProcess.StartInfo.FileName = pythonPath;
+							romCreationProcess.StartInfo.Arguments = ootrCLIPath + " --settings \"" + ootrSettingsPath + "\"";
 
-						romCreationProcess.Start();
-						//romCreationProcess.BeginOutputReadLine();
-						//romCreationProcess.BeginErrorReadLine();
-						romCreationProcess.WaitForExit();
-						// TODO: Check if the generation was succesful
+							// Redirect output
+							/*romCreationProcess.StartInfo.RedirectStandardOutput = true;
+							romCreationProcess.StartInfo.RedirectStandardError = true;
+							romCreationProcess.OutputDataReceived += (s, args) => sb.AppendLine(args.Data);
+							romCreationProcess.ErrorDataReceived += (s, args) => sb.AppendLine(args.Data);*/
+							romCreationProcess.StartInfo.UseShellExecute = false;
+
+							romCreationProcess.Start();
+							//romCreationProcess.BeginOutputReadLine();
+							//romCreationProcess.BeginErrorReadLine();
+							romCreationProcess.WaitForExit();
+							// TODO: Check if the generation was succesful
+						}
+
+						return outputRom;
+
+					// Cleanup any created files
+					} finally {
+						File.Delete(songtestPath);
+						File.Delete(songtestPath + "_Cosmetics.json");
+						File.Delete(songtestPath + "_Spoiler.json");
+						File.Delete(ootrSettingsPath);
+						File.Delete(ootrCosmeticPlandoPath);
 					}
-
-					// And for cleanup, we remove the song from the music folder so we don't disturb normal usage of the randomizer
-					File.Delete(songtestPath);
-
-					return outputRom;
 
 				} else {
 					var result = SetupOoTCustomMusicStarter();
-					if (result == DialogResult.OK) return GeneratePreviewRom(unique);
+					if (result == DialogResult.OK) return GeneratePreviewRom();
 				}
 
 				return null;

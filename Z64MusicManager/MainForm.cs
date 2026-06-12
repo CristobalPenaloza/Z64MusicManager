@@ -49,7 +49,7 @@ namespace Z64MusicManager {
 			throw new NotImplementedException();
 		}
 
-		protected virtual string GeneratePreviewRom(bool unique = false) {
+		protected virtual string GeneratePreviewRom() {
 			throw new NotImplementedException();
 		}
 
@@ -439,7 +439,7 @@ namespace Z64MusicManager {
 			string bizhawkPath = Properties.Settings.Default.BizhawkPath;
 			if (!string.IsNullOrEmpty(bizhawkPath)) {
 
-				string previewRom = GeneratePreviewRom(unique: true);
+				string previewRom = GeneratePreviewRom();
 				string wavFilePath = FileName.Replace(".mmrs", ".wav").Replace(".ootrs", ".wav");
 
 				try {
@@ -518,21 +518,25 @@ namespace Z64MusicManager {
 			if (result == DialogResult.OK) {
 				var tasks = new List<Task>();
 				foreach(string filename in ofd.FileNames) {
-					// Only support mmrs for now
-					// TODO: Allow async processing?
-					if (filename.EndsWith(".mmrs")) {
-						tasks.Add(Task.Run(() => {
-							try {
-								_semaphore.Wait();
+					tasks.Add(Task.Run(() => {
+						try {
+							_semaphore.Wait();
+							if(filename.EndsWith(".mmrs")) {
 								MMRForm form = new MMRForm();
 								form.FileName = filename;
 								form.FillFormWithCurrentFile();
 								form.Record();
-							} finally {
-								_semaphore.Release();
+
+							} else if(filename.EndsWith(".ootrs")) {
+								OoTRForm form = new OoTRForm();
+								form.FileName = filename;
+								form.FillFormWithCurrentFile();
+								form.Record();
 							}
-						}));
-					}
+						} finally {
+							_semaphore.Release();
+						}
+					}));
 				}
 
 				// Wait for all recordings to finish

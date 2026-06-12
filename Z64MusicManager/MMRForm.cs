@@ -254,7 +254,7 @@ namespace Z64MusicManager {
 
 
 
-		protected override string GeneratePreviewRom(bool unique = false) {
+		protected override string GeneratePreviewRom() {
 			// Lock this process to allow safe concurrency
 			lock (_generatePreviewLock) {
 
@@ -271,7 +271,7 @@ namespace Z64MusicManager {
 
 						// Get the necesary paths...
 						string mmrFolder = Path.GetDirectoryName(mmrCLIPath);
-						string outputRom = $"{mmrFolder}/output/{(unique ? Guid.NewGuid().ToString() : "")}_zmusicmanager-songtest.z64";
+						string outputRom = $"{mmrFolder}/output/{Guid.NewGuid().ToString()}_zmusicmanager-songtest.z64";
 						string defaultMMRSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mmr-default-settings.json");
 						songtestPath = mmrFolder + "/music/_zmusicmanager-songtest.mmrs";
 
